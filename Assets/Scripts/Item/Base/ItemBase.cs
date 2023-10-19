@@ -27,8 +27,7 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 
 	#region ITriggerCheckable implementation
 
-	[SerializeField]
-	private bool isAggroed;
+	[SerializeField] private bool isAggroed;
 
 	public bool IsAggroed
 	{

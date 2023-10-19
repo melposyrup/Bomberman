@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemOnHandState : ItemState
+public class ItemOnKickState : ItemState
 {
-	public ItemOnHandState(ItemBase itembase, ItemStateMachine itemStateMachine) : base(itembase, itemStateMachine)
+	public ItemOnKickState(ItemBase itembase, ItemStateMachine itemStateMachine) : base(itembase, itemStateMachine)
 	{
 	}
 
@@ -13,7 +13,7 @@ public class ItemOnHandState : ItemState
 		base.AnimationTriggerEvent(triggerType);
 
 		if (itembase is Bomb bomb)
-			bomb.ItemOnHandBaseInstance.DoAnimationTriggerEventLogic(triggerType);
+			bomb.ItemOnKickBaseInstance.DoAnimationTriggerEventLogic(triggerType);
 	}
 
 	public override void EnterState()
@@ -21,7 +21,7 @@ public class ItemOnHandState : ItemState
 		base.EnterState();
 
 		if (itembase is Bomb bomb)
-			bomb.ItemOnHandBaseInstance.DoEnterLogic();
+			bomb.ItemOnKickBaseInstance.DoEnterLogic();
 	}
 
 	public override void ExitState()
@@ -29,7 +29,7 @@ public class ItemOnHandState : ItemState
 		base.ExitState();
 
 		if (itembase is Bomb bomb)
-			bomb.ItemOnHandBaseInstance.DoExitLogic();
+			bomb.ItemOnKickBaseInstance.DoExitLogic();
 	}
 
 	public override void FixedUpdateState()
@@ -37,7 +37,7 @@ public class ItemOnHandState : ItemState
 		base.FixedUpdateState();
 
 		if (itembase is Bomb bomb)
-			bomb.ItemOnHandBaseInstance.DoFixedUpdateLogic();
+			bomb.ItemOnKickBaseInstance.DoFixedUpdateLogic();
 	}
 
 	public override void UpdateState()
@@ -45,6 +45,6 @@ public class ItemOnHandState : ItemState
 		base.UpdateState();
 
 		if (itembase is Bomb bomb)
-			bomb.ItemOnHandBaseInstance.DoUpdateLogic();
+			bomb.ItemOnKickBaseInstance.DoUpdateLogic();
 	}
 }

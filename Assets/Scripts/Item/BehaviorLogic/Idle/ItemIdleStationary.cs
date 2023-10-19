@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemIdleStationaryKickable", menuName = "ItemLogic/IdleLogic/ItemIdleStationaryKickable")]
-public class ItemIdleStationaryKickable : ItemIdleSOBase
+[CreateAssetMenu(fileName = "ItemIdleStationary", menuName = "ItemLogic/IdleLogic/ItemIdleStationary")]
+public class ItemIdleStationary : ItemIdleSOBase
 {
 	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
 	{
@@ -13,11 +13,13 @@ public class ItemIdleStationaryKickable : ItemIdleSOBase
 	public override void DoEnterLogic()
 	{
 		base.DoEnterLogic();
+		itembase.GetComponent<Rigidbody>().isKinematic = true;
 	}
 
 	public override void DoExitLogic()
 	{
 		base.DoExitLogic();
+		itembase.GetComponent<Rigidbody>().isKinematic = false;
 	}
 
 	public override void DoFixedUpdateLogic()
@@ -28,6 +30,25 @@ public class ItemIdleStationaryKickable : ItemIdleSOBase
 	public override void DoUpdateLogic()
 	{
 		base.DoUpdateLogic();
+
+	
+		if (itembase is Bomb bomb)
+		{
+			//OnHoldState
+			if (bomb.IsOnHold)
+			{
+				bomb.StateMachine.ChangeState(bomb.OnHandState);
+				return;
+			}
+
+			//OnKickState
+			if (bomb.IsKick)
+			{
+				bomb.StateMachine.ChangeState(bomb.OnKickState);
+				return;
+			}
+		}
+
 	}
 
 	public override void Initialize(GameObject gameObject, ItemBase itembase)
@@ -39,6 +60,6 @@ public class ItemIdleStationaryKickable : ItemIdleSOBase
 	{
 		base.ResetValues();
 	}
-}	
+}
 
 

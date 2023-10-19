@@ -35,31 +35,23 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 		set { isAggroed = value; }
 	}
 
-
 	public void SetAggroStatus(bool isAggroed)
 	{
 		IsAggroed = isAggroed;
 	}
-
-
 	#endregion
 
 	#region State Machine Variables
 
 	public ItemStateMachine StateMachine { get; set; }
 	public ItemIdleState IdleState { get; set; }
-	public ItemOnHandState OnHandState { get; set; }
 
 	#endregion
 
 	#region ScriptableObject Variables
 	[SerializeField] private ItemIdleSOBase ItemIdleBase;
-	[SerializeField] private ItemOnHandSOBase ItemOnHandBase;
 
 	public ItemIdleSOBase ItemIdleBaseInstance { get; set; }
-	public ItemOnHandSOBase ItemOnHandBaseInstance { get; set; }
-
-
 	#endregion
 
 	#region Aniamtion Triggers
@@ -81,19 +73,17 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 
 	#endregion
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		ItemIdleBaseInstance = Instantiate(ItemIdleBase);
-		ItemOnHandBaseInstance = Instantiate(ItemOnHandBase);
 
 		StateMachine = new ItemStateMachine();
 
 		IdleState = new ItemIdleState(this, StateMachine);
-		OnHandState = new ItemOnHandState(this, StateMachine);
 
 	}
 
-	private void Start()
+	protected virtual void Start()
 	{
 		Rigidbody = GetComponent<Rigidbody>();
 
@@ -102,12 +92,12 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 		StateMachine.Initialize(IdleState);
 	}
 
-	private void Update()
+	protected virtual void Update()
 	{
 		StateMachine.CurrentItemState.UpdateState();
 	}
 
-	private void FixedUpdate()
+	protected virtual void FixedUpdate()
 	{
 		StateMachine.CurrentItemState.FixedUpdateState();
 	}

@@ -61,17 +61,19 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable
 	protected override void FixedUpdate()
 	{
 		base.FixedUpdate();
+
+		Debug.Log("bomb state:  " + base.StateMachine.CurrentItemState);
 	}
 
 
 	//when player get out of the trigger,set trigger to false
-	//private void OnTriggerExit(Collider other)
-	//{
-	//	if (other.CompareTag("Player"))
-	//	{
-	//		GetComponent<BoxCollider>().isTrigger = false;
-	//	}
-	//}
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			gameObject.layer = LayerMask.NameToLayer("Bomb");
+		}
+	}
 
 
 }

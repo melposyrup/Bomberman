@@ -51,7 +51,8 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 		//create bomb on land
 		if (Input.GetKeyDown(KeyCode.E))
 		{
-			Instantiate(bombPrefab, transform.position, Quaternion.identity);
+			GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+			bomb.layer = LayerMask.NameToLayer("InitialBomb");
 		}
 
 		//create bomb on hand

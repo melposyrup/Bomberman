@@ -38,6 +38,7 @@ public class ItemIdleStationary : ItemIdleSOBase
 			if (bomb.IsOnHold)
 			{
 				bomb.StateMachine.ChangeState(bomb.OnHandState);
+				bomb.SetOnHoldStatus(false);
 				return;
 			}
 
@@ -45,6 +46,7 @@ public class ItemIdleStationary : ItemIdleSOBase
 			if (bomb.IsKick)
 			{
 				bomb.StateMachine.ChangeState(bomb.OnKickState);
+				bomb.SetKickStatus(false);
 				return;
 			}
 		}

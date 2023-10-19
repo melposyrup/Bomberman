@@ -16,6 +16,8 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 	private float _speed = 3.0f;
 	bool _isMoving = true;
 
+	private float collisionCooldown = 1f;
+
 	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
 	{
 		base.DoAnimationTriggerEventLogic(triggerType);
@@ -29,8 +31,6 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 		_direction = (itembase.transform.position - playerTransform.position).normalized;
 		_direction.y = 0;
 		_isMoving = true;
-
-		Debug.Log("ItemOnKickMoving DoEnterLogic()");
 	}
 
 	public override void DoExitLogic()
@@ -50,16 +50,18 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 	{
 		base.DoUpdateLogic();
 
-
-		Debug.Log("ItemOnKickMoving DoFixedUpdateLogic()");
-
 		//if reach player or air wall, stop moving
-		if (itembase.IsAggroed)
+		if (collisionCooldown < 0f)
 		{
-			_isMoving = false;
-			_direction = Vector3.zero;
-			itembase.StateMachine.ChangeState(itembase.IdleState);
+			if (itembase.IsAggroed)
+			{
+				_isMoving = false;
+				_direction = Vector3.zero;
+				itembase.StateMachine.ChangeState(itembase.IdleState);
+			}
 		}
+		else { collisionCooldown -= Time.deltaTime; }
+
 
 		//move item until it reaches player or air wall
 		if (_isMoving)

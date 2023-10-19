@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,11 +47,11 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 	public ItemStateMachine StateMachine { get; set; }
 	public ItemIdleState IdleState { get; set; }
 
+
 	#endregion
 
 	#region ScriptableObject Variables
 	[SerializeField] private ItemIdleSOBase ItemIdleBase;
-
 	public ItemIdleSOBase ItemIdleBaseInstance { get; set; }
 	#endregion
 
@@ -90,6 +91,7 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable
 		ItemIdleBaseInstance.Initialize(gameObject, this);
 
 		StateMachine.Initialize(IdleState);
+
 	}
 
 	protected virtual void Update()

@@ -58,25 +58,29 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 		//create bomb on hand
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-
+			GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+			bomb.layer = LayerMask.NameToLayer("InitialBomb");
+			bomb.GetComponent<Bomb>().SetOnHoldStatus(true);
+			bomb.GetComponent<Bomb>().SetHoldedBy(this.transform);
 		}
 
 		//kick bomb
 		if (Input.GetKeyDown(KeyCode.F))
 		{
-
 			//if bomb is on foot and bomb is idle, change state to bomb.OnKickState
 			if ((BombOnFoot) && (BombOnFoot.StateMachine.CurrentItemState is ItemIdleState))
 			{
-				Debug.Log(BombOnFoot.StateMachine.CurrentItemState);
 				BombOnFoot.SetKickStatus(true);
-				Debug.Log(BombOnFoot.StateMachine.CurrentItemState);
+				BombOnFoot.SetKickedBy(this.transform);
 			}
-
 		}
 
 		//throw bomb
+		if (Input.GetKeyDown(KeyCode.T))
+        {
+			//BombOnFoot.SetThrowStatus(true);
 
+		}
 
 
 		//if is hit by bomb in KickState, get IsStunned to true

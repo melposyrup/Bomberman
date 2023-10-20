@@ -167,7 +167,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 10
+=======
+  m_RootOrder: 8
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &24858340
 MonoBehaviour:
@@ -210,7 +214,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 14
+=======
+  m_RootOrder: 12
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &74050729
 PrefabInstance:
@@ -330,7 +338,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 12
+=======
+  m_RootOrder: 10
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &149184371
 MonoBehaviour:
@@ -501,6 +513,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1423266467 stripped
@@ -526,6 +539,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BombPrefab: {fileID: 1423266467}
+=======
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
 --- !u!1 &1519335292
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +638,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 9
+=======
+  m_RootOrder: 7
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1577933381
 GameObject:
@@ -751,7 +772,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 13
+=======
+  m_RootOrder: 11
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1584867622
 MonoBehaviour:
@@ -840,7 +865,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 11
+=======
+  m_RootOrder: 9
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1803188851
 MonoBehaviour:
@@ -915,6 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df6022209e7d0fd4d819fd3e4096b951, type: 3}
+<<<<<<< HEAD
 --- !u!1001 &2413824126272659854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -981,6 +1011,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8718687531330430662, guid: b33e3ad9c83c55e41b79afb4c27ba93b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b33e3ad9c83c55e41b79afb4c27ba93b, type: 3}
+=======
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)
 --- !u!1001 &3144875950013075429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1042,6 +1074,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbb49da6af47f8046b6108f6b8ca3131, type: 3}
+--- !u!1001 &3515251970981612210
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700208, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107955091299700214, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+      propertyPath: m_Name
+      value: playerTest
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3675855087254225304, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+    - {fileID: 3533485335233533318, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
 --- !u!1001 &6564003384627220557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1099,6 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aac503b56f3c394e81c225a569f9bf0, type: 3}
+<<<<<<< HEAD
 --- !u!1001 &7699655903975250675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1156,3 +1248,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2a725f40503c474e957b8ef79965c97, type: 3}
+=======
+--- !u!1 &8515098656624159131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5107955092701897513, guid: 3d264474a65951a4d9b75c151e826b71, type: 3}
+  m_PrefabInstance: {fileID: 3515251970981612210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8515098656624159206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8515098656624159131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c47fea884b5a9f43b591aa8403ae2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> 895593b (ItemBaseにOnThowステータスを追加)

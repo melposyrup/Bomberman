@@ -5,18 +5,18 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour, ITriggerCheckable
 {
     // 爆弾のPrefabを設定
-    [SerializeField] GameObject BombPrefab;
+    [SerializeField] GameObject Bomb;
 
 
     // プレイヤーの移動入力を検知した際に代入される値
-    float X = 0;
-    float Z = 0;
+    float InputHorizontal = 0;
+    float InputVertical = 0;
     // プレイヤーの移動速度
     float _playerMoveSpeed = 7.0f;
 
     // プレイヤーの行動
     // 現在ステージに設置している爆弾の数
-    //int _bombPlaceCount;
+    int _bombPlaceCount;
     // プレイヤーが気絶しているか
     //bool _playerFainting = false;
     // プレイヤーがやられているか
@@ -24,9 +24,9 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
     // プレイヤーのパワーアップ
     // 爆弾所持数
-    //int _bombMaxCount = 1;
+    int _bombMaxCount = 1;
     // 火力
-    //int _fireCount = 2;
+    int _fireCount = 2;
     // パワーボムか
     //bool _powerBomb = false;
 
@@ -61,18 +61,17 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         MovePlayer();
         // 爆弾関連の処理
         BombMovement();
-
     }
 
     // プレイヤーの移動関連の処理
     void MovePlayer()
     {
         // キー入力から値を取得
-        X = Input.GetAxis("Horizontal");
-        Z = Input.GetAxis("Vertical");
+        InputHorizontal = Input.GetAxis("Horizontal");
+        InputVertical = Input.GetAxis("Vertical");
         // 入力された方向に移動する
         // Calculate movement direction
-        Vector3 move = new Vector3(X, 0.0f, Z);
+        Vector3 move = new Vector3(InputHorizontal, 0, InputVertical);
 
         // Apply movement vector 
         transform.Translate(move * _playerMoveSpeed * Time.deltaTime, Space.World);
@@ -86,17 +85,14 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
     void BombMovement()
     {
-        // ボムを設置する
-        if (Input.GetButtonDown("Bomb_Place"))
+        // place bomb
+        if (Input.GetButtonDown("Bomb_Place") && _bombMaxCount > _bombPlaceCount)
         {
             // 爆弾のPrefabを生成
-            GameObject bomb = Instantiate(BombPrefab, transform.position, Quaternion.identity);
+            GameObject bomb = Instantiate(Bomb, transform.position, Quaternion.identity);
             bomb.layer = LayerMask.NameToLayer("InitialBomb");
             // 自分が設置しているボムのカウントを増やす
-            //++_bombPlaceCount;
-
-
-
+            ++_bombPlaceCount;
         }
         if (Input.GetButtonDown("Bomb_PickUp"))
         {
@@ -110,11 +106,34 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
             //if bomb is on foot and bomb is idle, change state to bomb.OnKickState
             if ((BombOnFoot) && (BombOnFoot.StateMachine.CurrentItemState is ItemIdleState))
             {
-                Debug.Log("22222222222");
-                BombOnFoot.SetKickedBy(this.transform);
+                BombOnFoot.SetKickedBy(transform);
                 BombOnFoot.SetKickStatus(true);
                 //Debug.Log(BombOnFoot.StateMachine.CurrentItemState);
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // アイテム取得
+        // 爆弾の所持数増加(bombMaxCount)
+        if(other.CompareTag("BombUp"))
+        {
+            Destroy(other);
+            ++_bombMaxCount;
+        }
+        // 爆弾の火力増加()
+        if (other.CompareTag("FireUp"))
+        {
+            Destroy(other);
+            ++_fireCount;
+        }
+
+        // 爆風を受けたら消滅(_playerDead)
+        //if (other.CompareTag(""))
+        //{
+        //    _playerDead = true;
+        //}
+
     }
 }

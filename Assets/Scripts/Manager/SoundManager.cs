@@ -201,7 +201,7 @@ public class SESoundData
 		KickBomb,
 		GetItem,
 		TakeOutRedBomb,
-		Stunned,//�ݽ~
+		Stunned,//気絶
 		PlayerDie,
 
 		//ItemSE

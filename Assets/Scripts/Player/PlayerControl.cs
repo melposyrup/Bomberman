@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, ITriggerCheckable
 {
-    // ”š’e‚ÌPrefab‚ğİ’è
+    // çˆ†å¼¾ã®Prefabã‚’è¨­å®š
     [SerializeField] GameObject Bomb;
 
 
-    // ƒvƒŒƒCƒ„[‚ÌˆÚ“®“ü—Í‚ğŒŸ’m‚µ‚½Û‚É‘ã“ü‚³‚ê‚é’l
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å…¥åŠ›ã‚’æ¤œçŸ¥ã—ãŸéš›ã«ä»£å…¥ã•ã‚Œã‚‹å€¤
     float InputHorizontal = 0;
     float InputVertical = 0;
-    // ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“x
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•é€Ÿåº¦
     float _playerMoveSpeed = 7.0f;
 
-    // ƒvƒŒƒCƒ„[‚Ìs“®
-    // Œ»İƒXƒe[ƒW‚Éİ’u‚µ‚Ä‚¢‚é”š’e‚Ì”
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•
+    // ç¾åœ¨ã‚¹ãƒ†ãƒ¼ã‚¸ã«è¨­ç½®ã—ã¦ã„ã‚‹çˆ†å¼¾ã®æ•°
     int _bombPlaceCount;
-    // ƒvƒŒƒCƒ„[‚ª‹Câ‚µ‚Ä‚¢‚é‚©
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ°—çµ¶ã—ã¦ã„ã‚‹ã‹
     //bool _playerFainting = false;
-    // ƒvƒŒƒCƒ„[‚ª‚â‚ç‚ê‚Ä‚¢‚é‚©
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚„ã‚‰ã‚Œã¦ã„ã‚‹ã‹
     //bool _playerDead = false;
 
-    // ƒvƒŒƒCƒ„[‚Ìƒpƒ[ƒAƒbƒv
-    // ”š’eŠ”
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‘ãƒ¯ãƒ¼ã‚¢ãƒƒãƒ—
+    // çˆ†å¼¾æ‰€æŒæ•°
     int _bombMaxCount = 1;
-    // ‰Î—Í
+    // ç«åŠ›
     int _fireCount = 2;
-    // ƒpƒ[ƒ{ƒ€‚©
+    // ãƒ‘ãƒ¯ãƒ¼ãƒœãƒ ã‹
     //bool _powerBomb = false;
 
     //kick
@@ -57,19 +57,19 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     // Update is called once per frame
     void Update()
     {
-        // ˆÚ“®ŠÖ˜A‚Ìˆ—
+        // ç§»å‹•é–¢é€£ã®å‡¦ç†
         MovePlayer();
-        // ”š’eŠÖ˜A‚Ìˆ—
+        // çˆ†å¼¾é–¢é€£ã®å‡¦ç†
         BombMovement();
     }
 
-    // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ŠÖ˜A‚Ìˆ—
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•é–¢é€£ã®å‡¦ç†
     void MovePlayer()
     {
-        // ƒL[“ü—Í‚©‚ç’l‚ğæ“¾
+        // ã‚­ãƒ¼å…¥åŠ›ã‹ã‚‰å€¤ã‚’å–å¾—
         InputHorizontal = Input.GetAxis("Horizontal");
         InputVertical = Input.GetAxis("Vertical");
-        // “ü—Í‚³‚ê‚½•ûŒü‚ÉˆÚ“®‚·‚é
+        // å…¥åŠ›ã•ã‚ŒãŸæ–¹å‘ã«ç§»å‹•ã™ã‚‹
         // Calculate movement direction
         Vector3 move = new Vector3(InputHorizontal, 0, InputVertical);
 
@@ -88,10 +88,10 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         // place bomb
         if (Input.GetButtonDown("Bomb_Place") && _bombMaxCount > _bombPlaceCount)
         {
-            // ”š’e‚ÌPrefab‚ğ¶¬
+            // çˆ†å¼¾ã®Prefabã‚’ç”Ÿæˆ
             GameObject bomb = Instantiate(Bomb, transform.position, Quaternion.identity);
             bomb.layer = LayerMask.NameToLayer("InitialBomb");
-            // ©•ª‚ªİ’u‚µ‚Ä‚¢‚éƒ{ƒ€‚ÌƒJƒEƒ“ƒg‚ğ‘‚â‚·
+            // è‡ªåˆ†ãŒè¨­ç½®ã—ã¦ã„ã‚‹ãƒœãƒ ã®ã‚«ã‚¦ãƒ³ãƒˆã‚’å¢—ã‚„ã™
             ++_bombPlaceCount;
         }
         if (Input.GetButtonDown("Bomb_PickUp"))
@@ -115,21 +115,21 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
     private void OnTriggerEnter(Collider other)
     {
-        // ƒAƒCƒeƒ€æ“¾
-        // ”š’e‚ÌŠ”‘‰Á(bombMaxCount)
+        // ã‚¢ã‚¤ãƒ†ãƒ å–å¾—
+        // çˆ†å¼¾ã®æ‰€æŒæ•°å¢—åŠ (bombMaxCount)
         if(other.CompareTag("BombUp"))
         {
             Destroy(other);
             ++_bombMaxCount;
         }
-        // ”š’e‚Ì‰Î—Í‘‰Á()
+        // çˆ†å¼¾ã®ç«åŠ›å¢—åŠ ()
         if (other.CompareTag("FireUp"))
         {
             Destroy(other);
             ++_fireCount;
         }
 
-        // ”š•—‚ğó‚¯‚½‚çÁ–Å(_playerDead)
+        // çˆ†é¢¨ã‚’å—ã‘ãŸã‚‰æ¶ˆæ»…(_playerDead)
         //if (other.CompareTag(""))
         //{
         //    _playerDead = true;

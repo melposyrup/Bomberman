@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAggroed: 0
   ItemIdleBase: {fileID: 11400000, guid: 98a10a7c0ee4dd34bab61efe4aadf2f8, type: 2}
+  ItemOnThrowBase: {fileID: 11400000, guid: f05c95bae2cc2394b942eaf7129c99cb, type: 2}
   ItemOnKickBase: {fileID: 11400000, guid: eb3e8c85439f1af4b8c4ca55192cbd4e, type: 2}
   ItemOnHandBase: {fileID: 11400000, guid: 2874558fef5d75c4b96086ea097ca414, type: 2}
 --- !u!1 &6564003384391692545

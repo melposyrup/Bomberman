@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 594605496688995822}
   m_Layer: 0
   m_Name: Fire
-  m_TagString: Item
+  m_TagString: FireUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAggroed: 0
   ItemIdleBase: {fileID: 11400000, guid: 6eb56c123e99f8848bdc27d9acac47a1, type: 2}
+  ItemOnThrowBase: {fileID: 11400000, guid: f05c95bae2cc2394b942eaf7129c99cb, type: 2}
 --- !u!1 &594605498702177958
 GameObject:
   m_ObjectHideFlags: 0

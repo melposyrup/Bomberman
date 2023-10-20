@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO: ±¬¡¢³à¤¤±¬¡¢¥Õ¥¡¥¤¥¢©`¡¢¥Ü¥à¡¢¥É¥¯¥ú½¢¥Ç¥Ó¥EòÆä¡©¤ËIdleState¤ËE¤­¤ò„IÀúÀ¹¤E
 
-/* ±¬£ºBomb
- * ³à¤¤±¬£ºRed Bomb
- * ¥Õ¥¡¥¤¥¢©`£ºFire
- * ¥Ü¥à£ºBombUP
- * ¥É¥¯¥ú¿ºSkull
- * ¥Ç¥Ó¥EºDevil
+
+/* çˆ†å¼¾ï¼šBomb
+ * èµ¤ã„çˆ†å¼¾ï¼šRed Bomb
+ * ãƒ•ã‚¡ã‚¤ã‚¢ãƒ¼ï¼šFire
+ * ãƒœãƒ ï¼šBombUP
+ * ãƒ‰ã‚¯ãƒ­ï¼šSkull
+ * ãƒ‡ãƒ“ãƒ«ï¼šDevil
  */
 
 public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemThrowable

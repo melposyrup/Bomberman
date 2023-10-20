@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBombAggroCheck : MonoBehaviour
+public class PlayerBombAggroCheck2P : MonoBehaviour
 {
-	private PlayerControl _playerControl;
+	private PlayerControl_2P _playerControl2P;
 
 	private void Awake()
 	{
-		_playerControl = GetComponentInParent<PlayerControl>();
+		_playerControl2P = GetComponentInParent<PlayerControl_2P>();
 	}
 
 	//when item get into trigger and it has bomb.cs, set playerTest.IsAggroed to true
@@ -18,8 +18,8 @@ public class PlayerBombAggroCheck : MonoBehaviour
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{
-				_playerControl.SetAggroStatus(true);
-				_playerControl.SetBombOnFoot(other.GetComponent<Bomb>());
+				_playerControl2P.SetAggroStatus(true);
+				_playerControl2P.SetBombOnFoot(other.GetComponent<Bomb>());
 			}
 		}
 	}
@@ -30,8 +30,8 @@ public class PlayerBombAggroCheck : MonoBehaviour
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{
-				_playerControl.SetAggroStatus(false);
-				_playerControl.SetBombOnFoot(null);
+				_playerControl2P.SetAggroStatus(false);
+				_playerControl2P.SetBombOnFoot(null);
 			}
 		}
 	}

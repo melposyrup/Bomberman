@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour, ITriggerCheckable
+public class PlayerControl_2P : MonoBehaviour, ITriggerCheckable
 {
     // 爆弾のPrefabを設定
     [SerializeField] GameObject BombPrefab;
@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     // 現在ステージに設置している爆弾の数
     //int _bombPlaceCount;
     // プレイヤーが気絶しているか
-    //bool _playerFainting = false;
+   // bool _playerFainting = false;
     // プレイヤーがやられているか
     //bool _playerDead = false;
 
@@ -26,9 +26,9 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     // 爆弾所持数
     //int _bombMaxCount = 1;
     // 火力
-    //int _fireCount = 2;
+   // int _fireCount = 2;
     // パワーボムか
-    //bool _powerBomb = false;
+   // bool _powerBomb = false;
 
     //kick
     public Bomb BombOnFoot { get; set; } = null;
@@ -68,8 +68,8 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     void MovePlayer()
     {
         // キー入力から値を取得
-        X = Input.GetAxis("Horizontal");
-        Z = Input.GetAxis("Vertical");
+        X = Input.GetAxis("Horizontal_2P");
+        Z = Input.GetAxis("Vertical_2P");
         // 入力された方向に移動する
         // Calculate movement direction
         Vector3 move = new Vector3(X, 0.0f, Z);
@@ -87,15 +87,15 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     void BombMovement()
     {
         // ボムを設置する
-        if (Input.GetButtonDown("Bomb_Place"))
+        if (Input.GetButtonDown("Bomb_Place_2P"))
         {
             // 爆弾のPrefabを生成
             GameObject bomb = Instantiate(BombPrefab, transform.position, Quaternion.identity);
             bomb.layer = LayerMask.NameToLayer("InitialBomb");
             // 自分が設置しているボムのカウントを増やす
-            //++_bombPlaceCount;
+           // ++_bombPlaceCount;
 
-
+            Debug.Log("Bomb_Place_2P ");
 
         }
         if (Input.GetButtonDown("Bomb_PickUp"))
@@ -104,17 +104,17 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         }
 
         //kick bomb
-        if (Input.GetButtonDown("Bomb_Kick"))
+        if (Input.GetButtonDown("Bomb_Kick_2P"))
         {
-
+            Debug.Log("Bomb_Kick_2P ");
             //if bomb is on foot and bomb is idle, change state to bomb.OnKickState
             if ((BombOnFoot) && (BombOnFoot.StateMachine.CurrentItemState is ItemIdleState))
             {
-                Debug.Log("22222222222");
                 BombOnFoot.SetKickedBy(this.transform);
                 BombOnFoot.SetKickStatus(true);
                 //Debug.Log(BombOnFoot.StateMachine.CurrentItemState);
             }
+
         }
     }
 }

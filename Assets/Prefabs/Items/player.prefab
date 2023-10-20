@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101c4843301599749aed14f84e6ff6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BombPrefab: {fileID: 0}
+  BombPrefab: {fileID: 6564003383231873774, guid: 2aac503b56f3c394e81c225a569f9bf0, type: 3}
 --- !u!1 &2413824125886275010
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 2413824125886275011}
   - component: {fileID: 2413824125886275009}
   - component: {fileID: 2413824125886275008}
-  - component: {fileID: 2413824125886275038}
   m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
@@ -186,17 +185,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83a491fbe8f0f4946b35d1d87c441f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2413824125886275038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2413824125886275010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1361b3992667354baf7cab1b26bbab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

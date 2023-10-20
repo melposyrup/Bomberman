@@ -6,4 +6,7 @@ public interface IItemHoldable
 {
 	bool IsOnHold { get; set; }
 	void SetOnHoldStatus(bool isHolding);
+
+	Transform IsHoldedBy { get; set; }
+	void SetHoldedBy(Transform transform);
 }

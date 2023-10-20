@@ -8,9 +8,7 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable
     #region IItemKickable implementation
     public bool IsKick { get; set; } = false;
     public void SetKickStatus(bool isKick)
-    {
-        IsKick = isKick;
-    }
+    { IsKick = isKick; }
     public Transform IsKickedBy { get; set; }
     public void SetKickedBy(Transform transform)
     { IsKickedBy = transform; }
@@ -20,9 +18,11 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable
     #region IItemHoldable implementation
     public bool IsOnHold { get; set; }
     public void SetOnHoldStatus(bool isHolding)
-    {
-        IsOnHold = isHolding;
-    }
+    { IsOnHold = isHolding; }
+    public Transform IsHoldedBy { get; set; }
+    public void SetHoldedBy(Transform transform)
+    { IsHoldedBy = transform; }
+
     #endregion
 
     #region State Machine Variables

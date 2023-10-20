@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerBombAggroCheck : MonoBehaviour
 {
-	private PlayerTest _playerTest;
+	private PlayerControl _playerControl;
 
 	private void Awake()
 	{
-		_playerTest = GetComponentInParent<PlayerTest>();
+		_playerControl = GetComponentInParent<PlayerControl>();
 	}
 
 	//when item get into trigger and it has bomb.cs, set playerTest.IsAggroed to true
@@ -18,8 +18,8 @@ public class PlayerBombAggroCheck : MonoBehaviour
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{
-				_playerTest.SetAggroStatus(true);
-				_playerTest.SetBombOnFoot(other.GetComponent<Bomb>());
+				_playerControl.SetAggroStatus(true);
+				_playerControl.SetBombOnFoot(other.GetComponent<Bomb>());
 			}
 		}
 	}
@@ -30,8 +30,8 @@ public class PlayerBombAggroCheck : MonoBehaviour
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{
-				_playerTest.SetAggroStatus(false);
-				_playerTest.SetBombOnFoot(null);
+				_playerControl.SetAggroStatus(false);
+				_playerControl.SetBombOnFoot(null);
 			}
 		}
 	}

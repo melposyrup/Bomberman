@@ -62,7 +62,7 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable
 	{
 		base.FixedUpdate();
 
-		Debug.Log("bomb state:  " + base.StateMachine.CurrentItemState);
+		//Debug.Log("bomb state:  " + base.StateMachine.CurrentItemState);
 	}
 
 

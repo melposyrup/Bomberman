@@ -16,10 +16,9 @@ public class ShowBoxCollider : MonoBehaviour
 	{
 		if (boxCollider == null) return;
 
-		Gizmos.color = Color.green; // 注释：设置Gizmo颜色。
-		Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale); // 注释：设置Gizmo的位置、旋转和缩放。
+		Gizmos.color = Color.green;
+		Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
 
-		// 注释：绘制一个立方体。
 		Gizmos.DrawWireCube(boxCollider.center, boxCollider.size);
 	}
 }

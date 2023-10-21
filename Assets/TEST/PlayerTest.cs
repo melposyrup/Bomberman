@@ -32,17 +32,17 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 
 	void Update()
 	{
-		// Get keyboard input ･ｭｩ`･ﾜｩ`･ﾉﾈ・ｦ､｡ｵﾃ､ｹ､・
-		float horizontalInput = Input.GetAxis("Horizontal"); // Horizontal input ﾋｮﾆｽﾈ・ｦ 
-		float verticalInput = Input.GetAxis("Vertical"); // Vertical input ｴｹﾖｱﾈ・ｦ
+		// Get keyboard input 
+		float horizontalInput = Input.GetAxis("Horizontal"); // Horizontal input 
+		float verticalInput = Input.GetAxis("Vertical"); // Vertical input 
 
-		// Calculate movement direction ﾒﾆ・ｷｽﾏ桐网ｹ､・
+		// Calculate movement direction 
 		Vector3 move = new Vector3(horizontalInput, 0.0f, verticalInput);
 
-		// Apply movement vector ﾒﾆ・･ﾙ･ｯ･ﾈ･・mﾓﾃ､ｹ､・
+		// Apply movement vector 
 		transform.Translate(move * speed * Time.deltaTime, Space.World);
 
-		// Change orientation to face the direction of movement ﾒﾆ・ｷｽﾏﾋﾏｫ､ﾃ､ﾆﾏｭ､荀ｨ､・
+		// Change orientation to face the direction of movement 
 		if (move != Vector3.zero)
 		{
 			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move.normalized), 0.15f);

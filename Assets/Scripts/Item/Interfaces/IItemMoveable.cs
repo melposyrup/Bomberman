@@ -8,6 +8,7 @@ public interface IItemMoveable
 
 
 	void MoveItem(Vector3 velocity);
+	void MoveItemKinematic(Vector3 velocity);
 
 
 }

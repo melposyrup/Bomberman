@@ -6,11 +6,12 @@ using UnityEngine;
 public class ShowSphereCollider : MonoBehaviour
 {
 	private SphereCollider sphereCollider;
-	[SerializeField] float _radius = 0.6f;
+	[SerializeField] float _radius;
 
 	void Start()
 	{
 		sphereCollider = GetComponent<SphereCollider>();
+		_radius =GetComponent<SphereCollider>().radius;
 	}
 
 	void OnDrawGizmos()

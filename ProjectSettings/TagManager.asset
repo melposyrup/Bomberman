@@ -16,14 +16,14 @@ TagManager:
   - Water
   - UI
   - Player
-  - Bomb
-  - Fire
   - AirWall
-  - 
-  - 
-  - 
-  - 
+  - Item
+  - Bomb
   - InitialBomb
+  - InitialItem
+  - 
+  - 
+  - 
   - 
   - 
   - 

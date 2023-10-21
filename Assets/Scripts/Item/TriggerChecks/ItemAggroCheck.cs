@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ItemAggroCheck : MonoBehaviour
 {
 	private ItemBase _itembase;
@@ -13,9 +14,15 @@ public class ItemAggroCheck : MonoBehaviour
 
 	private void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.CompareTag("AirWall")
-			|| collision.gameObject.CompareTag("Player")
-			|| collision.gameObject.CompareTag("Item"))
+		int playerLayer = LayerMask.NameToLayer("Player");
+		int airWallLayer = LayerMask.NameToLayer("AirWall");
+		int itemLayer = LayerMask.NameToLayer("Item");
+		int bombLayer = LayerMask.NameToLayer("Bomb");
+
+		if (collision.gameObject.layer == playerLayer
+			|| collision.gameObject.layer == airWallLayer
+			|| collision.gameObject.layer == itemLayer
+			|| collision.gameObject.layer == bombLayer)
 		{
 			_itembase.SetAggroStatus(true);
 		}
@@ -23,9 +30,15 @@ public class ItemAggroCheck : MonoBehaviour
 
 	private void OnTriggerExit(Collider collision)
 	{
-		if (collision.gameObject.CompareTag("AirWall")
-			|| collision.gameObject.CompareTag("Player")
-			|| collision.gameObject.CompareTag("Item"))
+		int playerLayer = LayerMask.NameToLayer("Player");
+		int airWallLayer = LayerMask.NameToLayer("AirWall");
+		int itemLayer = LayerMask.NameToLayer("Item");
+		int bombLayer = LayerMask.NameToLayer("Bomb");
+
+		if (collision.gameObject.layer == playerLayer
+			|| collision.gameObject.layer == airWallLayer
+			|| collision.gameObject.layer == itemLayer
+			|| collision.gameObject.layer == bombLayer)
 		{
 			_itembase.SetAggroStatus(false);
 		}

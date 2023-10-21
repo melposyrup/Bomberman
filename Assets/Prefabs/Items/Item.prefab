@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3144875950471374784}
   - component: {fileID: 3144875950471374785}
   - component: {fileID: 3144875950471374790}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3144875951328274354}
   - component: {fileID: 3144875951328274355}
   - component: {fileID: 3144875951328274352}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Item
   m_TagString: BombUp
   m_Icon: {fileID: 0}

@@ -13,8 +13,14 @@ public class BombAggroCheck : MonoBehaviour
 
 	private void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.CompareTag("Player")
-			|| collision.gameObject.CompareTag("AirWall"))
+		// Unity§«•Ï•§•‰©`§Ú π”√§∑§∆≈–∂®§π§Î•≥©`•…
+		int playerLayer = LayerMask.NameToLayer("Player");
+		int airWallLayer = LayerMask.NameToLayer("AirWall");
+		int bombLayer = LayerMask.NameToLayer("Bomb");
+
+		if (collision.gameObject.layer == playerLayer
+			|| collision.gameObject.layer == airWallLayer
+			|| collision.gameObject.layer == bombLayer)
 		{
 			_itembase.SetAggroStatus(true);
 		}
@@ -22,8 +28,13 @@ public class BombAggroCheck : MonoBehaviour
 
 	private void OnTriggerExit(Collider collision)
 	{
-		if (collision.gameObject.CompareTag("Player")
-			|| collision.gameObject.CompareTag("AirWall"))
+		int playerLayer = LayerMask.NameToLayer("Player");
+		int airWallLayer = LayerMask.NameToLayer("AirWall");
+		int bombLayer = LayerMask.NameToLayer("Bomb");
+
+		if (collision.gameObject.layer == playerLayer
+			|| collision.gameObject.layer == airWallLayer
+			|| collision.gameObject.layer == bombLayer)
 		{
 			_itembase.SetAggroStatus(false);
 		}

@@ -16,7 +16,7 @@ public class ItemOnKickMoving : ItemOnKickSOBase
     private float _speed = 3.0f;
     bool _isMoving = true;
 
-    private float collisionCooldown = 1f;
+    private float collisionCooldown = 0.3f;
 
     public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
     {

@@ -14,7 +14,7 @@ public class PlayerBombAggroCheckTEST : MonoBehaviour
 	//when item get into trigger and it has bomb.cs, set playerTest.IsAggroed to true
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Item"))
+		if (other.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{
@@ -26,7 +26,7 @@ public class PlayerBombAggroCheckTEST : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.CompareTag("Item"))
+		if (other.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{
 			if (other.GetComponent<Bomb>() != null)
 			{

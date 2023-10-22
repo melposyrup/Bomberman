@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   bombPrefab: {fileID: 6564003383231873774, guid: 2aac503b56f3c394e81c225a569f9bf0, type: 3}
+  _isOnHold: 0
 --- !u!1 &5604798435857051392
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,5 +200,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.5, z: 2}
-  m_Center: {x: 0, y: 0, z: 0.4}
+  m_Size: {x: 1.2, y: 2.5, z: 1.8}
+  m_Center: {x: 0, y: 0.4, z: 0.4}

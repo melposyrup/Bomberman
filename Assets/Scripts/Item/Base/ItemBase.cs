@@ -21,6 +21,14 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 
 	public Transform IsThrownBy { get; set; }
 	public void SetThrownBy(Transform transform) { IsThrownBy = transform; }
+
+	public Vector3 ThrowDirection { get; set; } = Vector3.zero;
+	public void SetThrowDirection(Vector3 direction) { }
+
+	public bool IsOnLand { get; set; } = false;
+	public void SetOnLand(bool isOnLand) { IsOnLand = isOnLand; }
+
+
 	#endregion
 
 	#region IItemMoveable implementation
@@ -33,6 +41,7 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 		Vector3 newPosition = Rigidbody.position + velocity * Time.deltaTime;
 		Rigidbody.MovePosition(newPosition);
 	}
+
 	#endregion
 
 	#region ITriggerCheckable implementation
@@ -113,7 +122,23 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 	protected virtual void FixedUpdate()
 	{
 		StateMachine.CurrentItemState.FixedUpdateState();
+
+		//keep rotation not changed
+		this.transform.rotation = Quaternion.identity;
 	}
 
-
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("StageLand"))
+		{
+			SetOnLand(true);
+		}
+	}
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("StageLand"))
+		{
+			SetOnLand(false);
+		}
+	}
 }

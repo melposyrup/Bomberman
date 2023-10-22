@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3bcd2b9e755351478c50d0c17946ad2, type: 3}
   m_Name: ItemOnThrowMoving
   m_EditorClassIdentifier: 
+  throwForce: 8

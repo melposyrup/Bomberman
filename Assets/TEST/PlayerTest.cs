@@ -9,6 +9,7 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 
 	public GameObject bombPrefab;
 
+	[SerializeField]private bool _isOnHold = false;
 
 
 	public Bomb BombOnFoot { get; set; } = null;
@@ -51,17 +52,10 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 		//create bomb on land
 		if (Input.GetKeyDown(KeyCode.E))
 		{
-			GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
-			bomb.layer = LayerMask.NameToLayer("InitialBomb");
-		}
 
-		//create bomb on hand
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
-			bomb.layer = LayerMask.NameToLayer("InitialBomb");
-			bomb.GetComponent<Bomb>().SetOnHoldStatus(true);
-			bomb.GetComponent<Bomb>().SetHoldedBy(this.transform);
+				GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+				bomb.layer = LayerMask.NameToLayer("InitialBomb");
+
 		}
 
 		//kick bomb
@@ -69,17 +63,38 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 		{
 			//if bomb is on foot and bomb is idle, change state to bomb.OnKickState
 			if ((BombOnFoot) && (BombOnFoot.StateMachine.CurrentItemState is ItemIdleState))
-			{
+
 				BombOnFoot.SetKickStatus(true);
 				BombOnFoot.SetKickedBy(this.transform);
+				SetBombOnFoot(null);
+				_isOnHold= false;
+
+		}
+
+		//create bomb on hand
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			if (!_isOnHold)
+			{
+				GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+				//bomb.layer = LayerMask.NameToLayer("InitialBomb");
+				bomb.GetComponent<Bomb>().SetOnHoldStatus(true);
+				bomb.GetComponent<Bomb>().SetHoldedBy(this.transform);
+				SetBombOnFoot(bomb.GetComponent<Bomb>());
+				_isOnHold=true;
 			}
 		}
 
 		//throw bomb
 		if (Input.GetKeyDown(KeyCode.T))
-        {
-			//BombOnFoot.SetThrowStatus(true);
-
+		{
+			if ((BombOnFoot) && (BombOnFoot.StateMachine.CurrentItemState is ItemOnHandState))
+			{
+				BombOnFoot.SetThrowStatus(true);
+				BombOnFoot.SetThrownBy(this.transform);
+				SetBombOnFoot(null);
+				_isOnHold= false;
+			}
 		}
 
 

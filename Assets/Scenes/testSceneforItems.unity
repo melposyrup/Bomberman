@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 1519335295}
   - component: {fileID: 1519335294}
   - component: {fileID: 1519335293}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

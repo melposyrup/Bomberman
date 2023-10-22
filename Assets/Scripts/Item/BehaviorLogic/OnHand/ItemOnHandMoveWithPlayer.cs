@@ -16,7 +16,6 @@ public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 	{
 		base.DoEnterLogic();
 		itembase.Rigidbody.isKinematic = false;
-
 	}
 
 	public override void DoExitLogic()
@@ -33,15 +32,20 @@ public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 	{
 		base.DoUpdateLogic();
 
-        if (itembase is Bomb bomb)
-        {
-			//if(bomb.IsThrow) changeState to ThrowByPlayer, return;
-			//(add force to bomb in EnterState,if OnLand() is true back to stationary)
-			
+		if (itembase is Bomb bomb)
+		{
 			//go with player
-			Vector3 pos = bomb.IsHoldedBy.position + bomb.IsHoldedBy.forward * HoldDistance;
+			Vector3 pos = bomb.IsHoldedBy.position 
+				+ bomb.IsHoldedBy.forward * HoldDistance 
+				+ Vector3.up * HoldDistance;
 			itembase.transform.position = pos;
-        }
+		}
+
+		if (itembase.IsThrow)
+		{
+			//if(bomb.IsThrow) changeState to ThrowByPlayer, return;
+			itembase.StateMachine.ChangeState(itembase.OnThrowState);
+		}
 
 	}
 

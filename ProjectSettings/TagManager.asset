@@ -8,6 +8,8 @@ TagManager:
   - Item
   - BombUp
   - FireUp
+  - Skull
+  - Devil
   layers:
   - Default
   - TransparentFX

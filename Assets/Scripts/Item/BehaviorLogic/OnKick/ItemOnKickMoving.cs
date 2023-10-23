@@ -33,6 +33,9 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 			_direction = (itembase.transform.position - bomb.IsKickedBy.transform.position).normalized;
 			_direction.y = 0;
 			_isMoving = true;
+
+			// 爆弾のカウントダウンを減る状態に
+			bomb.IsCounting = false;
 		}
 	}
 

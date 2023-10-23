@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
+public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBombExplodable
 {
 	#region IBombExpandable implementation
 	public Vector3 MaxScale { get; set; }
@@ -11,9 +11,9 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
 	public float MaxExpandFactor { get; set; } = 2f;
 
 	public void Expand()
-	{ 
-	if(transform.localScale.magnitude < MaxScale.magnitude)
-		transform.localScale *= ExpandFactor;
+	{
+		if (transform.localScale.magnitude < MaxScale.magnitude)
+			transform.localScale *= ExpandFactor;
 	}
 
 
@@ -39,6 +39,22 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
 
 	#endregion
 
+	#region IBombExplodable implementation
+	public bool IsExplode { get; set; }
+	public void SetExplodeStatus(bool isExplode)
+	{ IsExplode = isExplode; }
+	public int IsPlacedBy { get; set; }
+	public void SetPlacedBy(int player)
+	{ IsPlacedBy = player; }
+	public float IsExplodeTimer { get; set; }
+	public void SetExplodeTimer(float explodeTimer)
+	{ IsExplodeTimer = explodeTimer; }
+	public bool IsCounting { get; set; }
+	public void SetCounting(bool isCounting)
+	{ IsCounting = isCounting; }
+
+	#endregion
+
 	#region State Machine Variables
 	public ItemOnKickState OnKickState { get; set; }
 	public ItemOnHandState OnHandState { get; set; }
@@ -61,6 +77,9 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
 		OnKickState = new ItemOnKickState(this, base.StateMachine);
 		OnHandState = new ItemOnHandState(this, base.StateMachine);
 
+		// 爆弾のカウントダウン設定
+		IsExplodeTimer = 3.0f;
+		IsCounting = true;
 	}
 
 	protected override void Start()
@@ -81,6 +100,19 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
 	protected override void Update()
 	{
 		base.Update();
+
+		// 爆弾関連
+		if(IsCounting)
+		{
+			IsExplodeTimer -= Time.deltaTime;
+		}
+		if (IsExplodeTimer < 0)
+        {
+			Destroy(gameObject);
+			IsPlacedBy--;
+
+		}
+
 	}
 
 	protected override void FixedUpdate()
@@ -100,5 +132,9 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable
 		}
 	}
 
+	private void Death()
+    {
+		//playerObject.func();
 
+    }
 }

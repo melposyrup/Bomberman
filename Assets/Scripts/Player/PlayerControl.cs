@@ -16,7 +16,8 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
     // プレイヤーの行動
     // 現在ステージに設置している爆弾の数
-    int _bombPlaceCount;
+    public int _bombPlaceCount;
+    //public void BombPlaceIncrement 
     // プレイヤーが気絶しているか
     //bool _playerFainting = false;
     // プレイヤーがやられているか
@@ -37,7 +38,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         BombOnFoot = bomb;
         Debug.Log("BombOnFoot is set to " + BombOnFoot);
     }
-
+   
     #region ITriggerCheckable implementation
     public bool IsAggroed { get; set; } = false;
 
@@ -46,6 +47,23 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         IsAggroed = isAggroed;
     }
     #endregion
+
+    #region IBombExplodable implementation
+    public bool IsExplode { get; set; }
+    public void SetExplodeStatus(bool isExplode)
+    { IsExplode = isExplode; }
+    public Transform IsPlacedBy { get; set; }
+    public void SetPlacedBy(Transform transform)
+    { IsPlacedBy = transform; }
+    public float IsExplodeTimer { get; set; }
+    public void SetExplodeTimer(float explodeTimer)
+    { IsExplodeTimer = explodeTimer; }
+    public bool IsCounting { get; set; }
+    public void SetCounting(bool isCounting)
+    { IsCounting = isCounting; }
+
+    #endregion
+
 
 
     // Start is called before the first frame update
@@ -93,6 +111,8 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
             bomb.layer = LayerMask.NameToLayer("InitialBomb");
             // 自分が設置しているボムのカウントを増やす
             ++_bombPlaceCount;
+            // 誰が生成したかの情報を渡す
+            bomb.GetComponent<Bomb>().SetPlacedBy(_bombPlaceCount);
         }
         if (Input.GetButtonDown("Bomb_PickUp"))
         {

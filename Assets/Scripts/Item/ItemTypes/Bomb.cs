@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBombExplodable
 {
+
+
 	#region IBombExpandable implementation
 	public Vector3 MaxScale { get; set; }
 	public float ExpandFactor { get; set; } = 0.3f;
@@ -68,6 +70,10 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 
 	#endregion
 
+
+	[Header("AnimationEffects")]
+	public GameObject Explosion;
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -102,15 +108,15 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		base.Update();
 
 		// ”š’eŠÖ˜A
-		if(IsCounting)
+		if (IsCounting)
 		{
 			IsExplodeTimer -= Time.deltaTime;
 		}
 		if (IsExplodeTimer < 0)
-        {
-			Destroy(gameObject);
-			IsPlacedBy--;
+		{
 
+			IsPlacedBy--;
+			Death();
 		}
 
 	}
@@ -133,8 +139,14 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 	}
 
 	private void Death()
-    {
+	{
 		//playerObject.func();
+		if (Explosion)
+		{
+			Instantiate(Explosion, transform.position, Quaternion.identity);
+		}
+		else { Debug.Log("Explosion Prefab undefined"); }
 
-    }
+		Destroy(gameObject);
+	}
 }

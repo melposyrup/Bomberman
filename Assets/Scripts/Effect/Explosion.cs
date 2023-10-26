@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-	// Total animation time in seconds ¥¢¥Ë¥á©`¥·¥ç¥ó¤ÎÈ«ÆÚég£¨Ãë£©
+	// Total animation time in seconds ¥¢¥Ë¥á©`¥·¥ç¥ó¤ÎÈ«ÆÚég£¨ÃE©
 	public float animationDuration = 1.0f;
-	// Rotation speed in degrees per second »ØÜËÙ¶È£¨Ãë¤´¤È¤Î¶ÈÊı£©
+	// Rotation speed in degrees per second »ØÜËÙ¶È£¨ÃE´¤È¤Î¶ÈÊı£©
 	public float rotationSpeed = -360f;
 
 	private Vector3 initialScale;
@@ -17,14 +17,14 @@ public class Explosion : MonoBehaviour
 	{
 		initialScale = transform.localScale; 
 		material = GetComponent<MeshRenderer>().material; 
-		material.color = new Color(1f, 1f, 1f, 1f); // ³õÆÚ¤ÎÉ«¤ÈÍ¸Ã÷¶È¤ò1¤ËÔO¶¨
+		material.color = new Color(1f, 1f, 1f, 1f); // ³õÆÚ¤ÎÉ«¤ÈÍ¸Ã÷¶È¤E¤ËÔO¶¨
 	}
 
 	void Update()
 	{
 		elapsedTime += Time.deltaTime;
 
-		// Calculate scale and alpha based on elapsed time ½Uß^•rég¤Ë»ù¤Å¤¤¤Æscale¤Èalpha¤òÓ‹Ëã
+		// Calculate scale and alpha based on elapsed time ½Uß^•rég¤Ë»ù¤Å¤¤¤Æscale¤Èalpha¤òÓ‹ËE
 		float progress = elapsedTime / animationDuration;
 		float currentScale = Mathf.Lerp(1f, 2f, progress);
 		float alpha = Mathf.Lerp(1f, 0f, progress);

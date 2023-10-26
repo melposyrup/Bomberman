@@ -7,7 +7,6 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     // 爆弾のPrefabを設定
     [SerializeField] GameObject Bomb;
 
-
     // プレイヤーの移動入力を検知した際に代入される値
     float InputHorizontal = 0;
     float InputVertical = 0;
@@ -16,20 +15,24 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
     // プレイヤーの行動
     // 現在ステージに設置している爆弾の数
-    public int _bombPlaceCount;
+    public int _bombPlaceNum;
     //public void BombPlaceIncrement 
     // プレイヤーが気絶しているか
     //bool _playerFainting = false;
     // プレイヤーがやられているか
-    //bool _playerDead = false;
+    bool _IsDead = false;
 
-    // プレイヤーのパワーアップ
+    // プレイヤーのバフ、デバフ
     // 爆弾所持数
-    int _bombMaxCount = 1;
+    int _bombMaxNum = 1;
     // 火力
-    int _fireCount = 2;
+    int _firePowerNum = 2;
     // パワーボムか
-    //bool _powerBomb = false;
+    bool _powerBomb = false;
+    // デビル状態か
+    bool _IsDevil = false;
+    // ドクロ状態か
+    bool _IsSkull = false;
 
     //kick
     public Bomb BombOnFoot { get; set; } = null;
@@ -79,6 +82,8 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
         MovePlayer();
         // 爆弾関連の処理
         BombMovement();
+        // プレイヤーがやられたときの処理(爆風に触れたときに入れる？)
+        IsPlayerDead();
     }
 
     // プレイヤーの移動関連の処理
@@ -104,15 +109,15 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     void BombMovement()
     {
         // place bomb
-        if (Input.GetButtonDown("Bomb_Place") && _bombMaxCount > _bombPlaceCount)
+        if (Input.GetButtonDown("Bomb_Place") && _bombMaxNum > _bombPlaceNum)
         {
             // 爆弾のPrefabを生成
             GameObject bomb = Instantiate(Bomb, transform.position, Quaternion.identity);
             bomb.layer = LayerMask.NameToLayer("InitialBomb");
             // 自分が設置しているボムのカウントを増やす
-            ++_bombPlaceCount;
+            ++_bombPlaceNum;
             // 誰が生成したかの情報を渡す
-            bomb.GetComponent<Bomb>().SetPlacedBy(_bombPlaceCount);
+            bomb.GetComponent<Bomb>().SetPlacedBy(_bombPlaceNum);
         }
         if (Input.GetButtonDown("Bomb_PickUp"))
         {
@@ -136,24 +141,19 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
     private void OnTriggerEnter(Collider other)
     {
         // アイテム取得
-        // 爆弾の所持数増加(bombMaxCount)
-        if(other.CompareTag("BombUp"))
-        {
-            Destroy(other);
-            ++_bombMaxCount;
-        }
-        // 爆弾の火力増加()
-        if (other.CompareTag("FireUp"))
-        {
-            Destroy(other);
-            ++_fireCount;
-        }
-
         // 爆風を受けたら消滅(_playerDead)
-        //if (other.CompareTag(""))
-        //{
-        //    _playerDead = true;
-        //}
+        if (other.CompareTag("Explosion"))
+        {
+            _IsDead = true;   
+        }
+    }
 
+    // プレイヤーがやられたときの処理
+    void IsPlayerDead()
+    {
+        if(_IsDead)
+        {
+            Destroy(gameObject);
+        }
     }
 }

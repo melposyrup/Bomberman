@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class PlayerTest : MonoBehaviour, ITriggerCheckable
 {
+	const int PLAYER_NUM = 1;
 
-	public float speed = 2.0f;
+	[SerializeField] private float speed = 2.0f;
 
 	public GameObject bombPrefab;
 
 	[SerializeField]private bool _isOnHold = false;
 
 
-	public Bomb BombOnFoot { get; set; } = null;
+	private Bomb BombOnFoot { get; set; } = null;
 	public void SetBombOnFoot(Bomb bomb)
 	{
 		BombOnFoot = bomb;
 		Debug.Log("BombOnFoot is set to " + BombOnFoot);
+	}
+
+	[SerializeField] private bool isDead = false;
+	public void SetDeadStatus(bool isDead)
+	{
+		this.isDead = isDead;
 	}
 
 
@@ -32,13 +39,13 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 
 	/**
  * @fn
- * ‚±‚±‚ÉŠÖ”‚Ìà–¾‚ğ‘‚­
- * @brief —v–ñà–¾
- * @param (ˆø”–¼) ˆø”‚Ìà–¾
- * @param (ˆø”–¼) ˆø”‚Ìà–¾
- * @return –ß‚è’l‚Ìà–¾
- * @sa QÆ‚·‚×‚«ŠÖ”‚ğ‘‚¯‚ÎƒŠƒ“ƒN‚ª“\‚ê‚é
- * @detail Ú×‚Èà–¾
+ * ã“ã“ã«é–¢æ•°ã®èª¬æ˜ã‚’æ›¸ã
+ * @brief è¦ç´„èª¬æ˜
+ * @param (å¼•æ•°å) å¼•æ•°ã®èª¬æ˜
+ * @param (å¼•æ•°å) å¼•æ•°ã®èª¬æ˜
+ * @return æˆ»ã‚Šå€¤ã®èª¬æ˜
+ * @sa å‚ç…§ã™ã¹ãé–¢æ•°ã‚’æ›¸ã‘ã°ãƒªãƒ³ã‚¯ãŒè²¼ã‚Œã‚‹
+ * @detail è©³ç´°ãªèª¬æ˜
  */
 	void Update()
 	{
@@ -110,6 +117,27 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 		//if is hit by bomb in KickState, get IsStunned to true
 
 
+		// if Player is dead
+		if (isDead)
+		{
+
+			//TODO: play death sound
+
+			//TODO: call death event
+			EventManager.Instance.OnPlayerDeath.Invoke(PLAYER_NUM);
+
+			//TODO: play death animation, when animation is over call destory
+			OnDestroy();
+		}
+
+
+			
 	}
+
+	public void OnDestroy()
+	{
+		Destroy(gameObject);
+	}
+
 }
 

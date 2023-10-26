@@ -14,8 +14,7 @@ public class ItemAggroCheck : MonoBehaviour
 
 	private void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Player")
-			|| collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
+		if (collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
 			|| collision.gameObject.layer == LayerMask.NameToLayer("Item")
 			|| collision.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{
@@ -25,8 +24,7 @@ public class ItemAggroCheck : MonoBehaviour
 
 	private void OnTriggerExit(Collider collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Player")
-			|| collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
+		if (collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
 			|| collision.gameObject.layer == LayerMask.NameToLayer("Item")
 			|| collision.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{

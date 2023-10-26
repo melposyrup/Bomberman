@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerManager: MonoBehaviour
+public class TimerManager : MonoBehaviour
 {
-    // ƒ^ƒCƒ}[‚ÌƒIƒuƒWƒFƒNƒgæ“¾—p
-    public GameObject Timer;
-    Text _timerText;
+	// ã‚¿ã‚¤ãƒãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—ç”¨
+	public GameObject Timer;
+	Text _timerText;
 
-    // ŠÔ
-    int _minutes = 2;
-    float _seconds = 0;
+	// æ™‚é–“
+	int _minutes = 2;
+	float _seconds = 0;
 
-    // ‰Šú‰»
-    void Start()
-    {
-        // ƒIƒuƒWƒFƒNƒg‚©‚çTextƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        _timerText = Timer.GetComponent<Text>();
-    }
+	// åˆæœŸåŒ–
+	void Start()
+	{
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
+		_timerText = Timer.GetComponent<Text>();
+	}
 
-    // XV
-    void Update()
-    {
-        // 0ˆÈã‚È‚ç•b”‚ğƒ}ƒCƒiƒX‚·‚é
-        if (_seconds > 0)
-        {
-            _seconds -= Time.deltaTime;
-        }
-        // 0ˆÈ‰º‚É‚È‚ê‚Î•ª”‚ğƒ}ƒCƒiƒX‚µ‚ÄƒŠƒZƒbƒg
-        else
-        {
-            _seconds = 60;
-            _minutes--;
-        }
+	// æ›´æ–°
+	void Update()
+	{
+		// 0ä»¥ä¸Šãªã‚‰ç§’æ•°ã‚’ãƒã‚¤ãƒŠã‚¹ã™ã‚‹
+		if (_seconds > 0)
+		{
+			_seconds -= Time.deltaTime;
+		}
+		// 0ä»¥ä¸‹ã«ãªã‚Œã°åˆ†æ•°ã‚’ãƒã‚¤ãƒŠã‚¹ã—ã¦ãƒªã‚»ãƒƒãƒˆ
+		else
+		{
+			_seconds = 60;
+			_minutes--;
+		}
 
-        // ƒeƒLƒXƒg‚Ì•\¦‚ğXV‚·‚é
-        _timerText.text = _minutes.ToString("0") + ":" + ((int)_seconds).ToString("00");
-    }
+		// ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’æ›´æ–°ã™ã‚‹
+		_timerText.text = _minutes.ToString("0") + ":" + ((int)_seconds).ToString("00");
+	}
 }

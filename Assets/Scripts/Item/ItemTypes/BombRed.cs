@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skull : ItemBase
+public class BombRed : MonoBehaviour
 {
 	private void OnTriggerEnter(Collider collision)
 	{
@@ -11,7 +11,7 @@ public class Skull : ItemBase
 			PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
 			if (player != null)
 			{
-				player.SetSkull(true);
+				player.SetPowerBomb(true);
 
 				Destroy(gameObject);
 			}

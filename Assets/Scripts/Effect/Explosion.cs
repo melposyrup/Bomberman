@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-	// Total animation time in seconds •¢•À•·©`•∑•Á•Û§Œ»´∆⁄Èg£®√ÅE©
+	// Total animation time in seconds 
 	public float animationDuration = 1.0f;
-	// Rotation speed in degrees per second ªÿ‹ûÀŸ∂»£®√ÅE¥§»§Œ∂» ˝£©
+	// Rotation speed in degrees per second 
 	public float rotationSpeed = -360f;
 
 	private Vector3 initialScale;
@@ -17,14 +17,14 @@ public class Explosion : MonoBehaviour
 	{
 		initialScale = transform.localScale; 
 		material = GetComponent<MeshRenderer>().material; 
-		material.color = new Color(1f, 1f, 1f, 1f); // ≥ı∆⁄§Œ…´§»Õ∏√˜∂»§ÅE§À‘O∂®
+		material.color = new Color(1f, 1f, 1f, 1f); 
 	}
 
 	void Update()
 	{
 		elapsedTime += Time.deltaTime;
 
-		// Calculate scale and alpha based on elapsed time ΩUﬂ^ïrÈg§Àª˘§≈§§§∆scale§»alpha§Ú”ãÀÅE
+		// Calculate scale and alpha based on elapsed time 
 		float progress = elapsedTime / animationDuration;
 		float currentScale = Mathf.Lerp(1f, 2f, progress);
 		float alpha = Mathf.Lerp(1f, 0f, progress);
@@ -34,19 +34,19 @@ public class Explosion : MonoBehaviour
 		material.color = new Color(1f, 1f, 1f, alpha);
 		transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
 
-		// Destroy the game object once the animation finishes •¢•À•·©`•∑•Á•Û§¨ΩK¡À§∑§ø§È•≤©`•‡•™•÷•∏•ß•Ø•»§Ú∆∆óâ
+		// Destroy the game object once the animation finishes 
 		if (elapsedTime >= animationDuration)
 		{
 			Destroy(gameObject);
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		// once attach to player, change player's death bool to true
-		if (other.gameObject.tag == "Player")
-		{
-			other.gameObject.GetComponent<PlayerTest>().SetDeadStatus(true);
-		}
-	}
+	//private void OnTriggerEnter(Collider other)
+	//{
+	//	// once attach to player, change player's death bool to true
+	//	if (other.gameObject.tag == "Player")
+	//	{
+	//		other.gameObject.GetComponent<PlayerTest>().SetDeadStatus(true);
+	//	}
+	//}
 }

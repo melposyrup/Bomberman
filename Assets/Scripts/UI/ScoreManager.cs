@@ -5,21 +5,23 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    // ƒvƒŒƒCƒ„[ƒXƒRƒA‚ÌƒIƒuƒWƒFƒNƒgæ“¾—p
-    public GameObject Score;
-    Text _scoreText;
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ã‚³ã‚¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—ç”¨
+	public GameObject Score;
+	Text _scoreText;
 
-    int _playerscore1P;
-    int _playerscore2P;
+	int _playerscore1P;
+	int _playerscore2P;
 
 
-    void Start()
-    {
-        // ƒIƒuƒWƒFƒNƒg‚©‚çTextƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        _scoreText = Score.GetComponent<Text>();
-        // ƒvƒŒƒCƒ„[ŠÖ˜A‚ÌƒXƒNƒŠƒvƒg‚©‚çŸ—˜”‚ğæ“¾
+	void Start()
+	{
+		// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
+		_scoreText = Score.GetComponent<Text>();
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é–¢é€£ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰å‹åˆ©æ•°ã‚’å–å¾—
 
-        // ƒeƒLƒXƒg‚Ì•\¦‚ğXV‚·‚é
-        _scoreText.text = _playerscore1P.ToString("0") + "           " + _playerscore2P.ToString("0");
-    }
+		// ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’æ›´æ–°ã™ã‚‹
+		_scoreText.text = _playerscore1P.ToString("0") + "           " + _playerscore2P.ToString("0");
+	}
+
+
 }

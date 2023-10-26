@@ -5,30 +5,30 @@ using UnityEngine.UI;
 
 public class StartMessageManager : MonoBehaviour
 {
-    public GameObject GOMessage;
-    public GameObject READYMessage;
- 
-    void Start()
-    {
-        //// ƒIƒuƒWƒFƒNƒg‚©‚çTextƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        //_goText = GOMessage.GetComponent<Image>();
-        //_readyText = READYMessage.GetComponent<Image>();
-        READYMessage.SetActive(true);
-        Invoke(nameof(ChangeMessage), 1.0f);
-        Invoke(nameof(DeleteMessage), 2.0f);
-    }
+	public GameObject GOMessage;
+	public GameObject READYMessage;
 
-    // ƒƒbƒZ[ƒW‚ğREADY‚©‚çGO‚É•ÏX
-    void ChangeMessage()
-    {
-        READYMessage.SetActive(false);
-        GOMessage.SetActive(true);
-    }
+	void Start()
+	{
+		//// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
+		//_goText = GOMessage.GetComponent<Image>();
+		//_readyText = READYMessage.GetComponent<Image>();
+		READYMessage.SetActive(true);
+		Invoke(nameof(ChangeMessage), 1.0f);
+		Invoke(nameof(DeleteMessage), 2.0f);
+	}
 
-    // ƒƒbƒZ[ƒW‚ğíœ
-    void DeleteMessage()
-    {
-        Destroy(GOMessage);
-        Destroy(READYMessage);
-    }
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’READYã‹ã‚‰GOã«å¤‰æ›´
+	void ChangeMessage()
+	{
+		READYMessage.SetActive(false);
+		GOMessage.SetActive(true);
+	}
+
+	// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‰Šé™¤
+	void DeleteMessage()
+	{
+		Destroy(GOMessage);
+		Destroy(READYMessage);
+	}
 }

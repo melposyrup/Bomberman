@@ -2,33 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class StartMessageManager : MonoBehaviour
 {
 	public GameObject GOMessage;
 	public GameObject READYMessage;
 
-	void Start()
+	public void StartMessage()
 	{
-		//// オブジェクトからTextコンポーネントを取得
-		//_goText = GOMessage.GetComponent<Image>();
-		//_readyText = READYMessage.GetComponent<Image>();
-		READYMessage.SetActive(true);
-		Invoke(nameof(ChangeMessage), 1.0f);
-		Invoke(nameof(DeleteMessage), 2.0f);
+		StartCoroutine(ShowStartMessages());
 	}
 
-	// メッセージをREADYからGOに変更
-	void ChangeMessage()
+	IEnumerator ShowStartMessages()
 	{
+		yield return new WaitForSeconds(1.0f);
+
+		READYMessage.SetActive(true);
+		GOMessage.SetActive(false);
+
+		yield return new WaitForSeconds(1.0f);
+
+		// メッセージをREADYからGOに変更
 		READYMessage.SetActive(false);
 		GOMessage.SetActive(true);
-	}
 
-	// メッセージを削除
-	void DeleteMessage()
-	{
-		Destroy(GOMessage);
-		Destroy(READYMessage);
+		yield return new WaitForSeconds(1.0f);
+
+
+		READYMessage.SetActive(false);
+		GOMessage.SetActive(false);
 	}
 }

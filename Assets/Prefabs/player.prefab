@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8980441790141167385
 Transform:
   m_ObjectHideFlags: 0
@@ -128,7 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101c4843301599749aed14f84e6ff6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEventManager: {fileID: 0}
   Bomb: {fileID: 6564003383231873774, guid: 2aac503b56f3c394e81c225a569f9bf0, type: 3}
+  _bombPlaceNum: 0
+  _bombMaxNum: 1
+  _firePowerNum: 0
+  _powerBomb: 0
+  _isDevil: 0
+  _isSkull: 0
+  _isOnHold: 0
 --- !u!1 &8980441790700259289
 GameObject:
   m_ObjectHideFlags: 0

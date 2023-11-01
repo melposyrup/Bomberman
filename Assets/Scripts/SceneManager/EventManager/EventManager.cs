@@ -13,18 +13,10 @@ using UnityEngine.Events;
 
 public class EventManager : MonoBehaviour
 {
-	public static EventManager Instance;
+	
 
 	// !for SelectionScene
 
-	// !for GameScene
-	// call ReadyGo(), GameSceneInitialize(), PlayerInitialize(),
-	public UnityEvent GetIntoGameScene;
-	// when countdown is under 60 seconds, or someone takes a special item
-	// UrgentCanvusStart()
-	public UnityEvent StartUrgentCountdown;
-	// UrgentCanvusStop() once the round is over
-	public UnityEvent StopUrgentCountdown; 
 
 	// !for ResultScene
 
@@ -56,14 +48,14 @@ public class EventManager : MonoBehaviour
 
 	private void Start()
 	{
+		// IntEvent
 		OnPlayerDeath = new IntEvent();
 
-		GetIntoGameScene= new UnityEvent();
-		StartUrgentCountdown= new UnityEvent();
-		StopUrgentCountdown= new UnityEvent();
 	}
 
+	// !Singleton
 
+	public static EventManager Instance;
 
 	private void Awake()
 	{
@@ -75,6 +67,16 @@ public class EventManager : MonoBehaviour
 		else
 		{
 			Destroy(gameObject);
+		}
+	}
+
+	// Destroy the Singleton instance
+	public void DestroySingleton()
+	{
+		if (Instance == this)
+		{
+			Destroy(gameObject);
+			Instance = null;
 		}
 	}
 }

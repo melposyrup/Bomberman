@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, ITriggerCheckable
 {
+	public GameEventManager gameEventManager;
+	const int PLAYRT_NUM = 1;
+
 	// 爆弾のPrefabを設定
 	[SerializeField] GameObject Bomb;
 
@@ -12,7 +15,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 	float InputHorizontal = 0;
 	float InputVertical = 0;
 	// プレイヤーの移動速度
-	float _playerMoveSpeed = 7.0f;
+	float _playerMoveSpeed = 6.0f;
 
 	// プレイヤーの行動
 	// 現在ステージに設置している爆弾の数
@@ -90,7 +93,11 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 	// Start is called before the first frame update
 	void Start()
 	{
+		GameObject gameEventManagerObject = GameObject.Find("GameManager");
 
+		if (gameEventManagerObject != null)
+		{ gameEventManager = gameEventManagerObject.GetComponent<GameEventManager>(); }
+		else { Debug.Log("Cannot find GameEventManager"); }
 	}
 
 	// Update is called once per frame
@@ -126,7 +133,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
 	void BombMovement()
 	{
-		// place bomb
+		// place bomb Q
 		if (Input.GetButtonDown("Bomb_Place") && _bombMaxNum > _bombPlaceNum)
 		{
 			// 爆弾のPrefabを生成
@@ -138,7 +145,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 			bomb.GetComponent<Bomb>().SetPlacedBy(_bombPlaceNum);
 		}
 
-		//kick bomb
+		//kick bomb E
 		if (Input.GetButtonDown("Bomb_Kick"))
 		{
 
@@ -151,7 +158,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 			}
 		}
 
-		//hold bomb
+		//hold bomb R
 		if (Input.GetButtonDown("Bomb_PickUp"))
 		{
 			if (!_isOnHold)
@@ -165,7 +172,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 			}
 		}
 
-		//throw bomb
+		//throw bomb T
 		if (Input.GetButtonDown("Bomb_Throw"))
 		{
 			if (_isOnHold && _bombOnHold)
@@ -195,10 +202,31 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 		if (_IsDead)
 		{
 			if (_isOnHold) { Destroy(_bombOnHold); }
+
+			//call GameEvnetManager.OnPlayerDeath
+			gameEventManager.OnPlayerDeath.Invoke(PLAYRT_NUM);
+			Debug.Log("PLAYRT_NUM:" + PLAYRT_NUM);
 			//TODO: instantiate items
 			//TODO: play death sound
 			//TODO: play death animation
-			Destroy(gameObject);
+			this.gameObject.SetActive(false);
 		}
+	}
+
+	// Activate PlayerControl script
+	public void Activate()
+	{
+		this.enabled = true;
+	}
+
+	// Deactivate PlayerControl script
+	public void Deactivate()
+	{
+		this.enabled = false;
+	}
+
+	public void HurryUpMoveSpeed()
+	{
+		_playerMoveSpeed = 12.0f;
 	}
 }

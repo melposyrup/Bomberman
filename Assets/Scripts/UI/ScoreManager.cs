@@ -5,33 +5,29 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-	// プレイヤースコアのオブジェクト取得用
-	//public GameObject Score;
+	// プレイヤースコアUIのオブジェクト取得用
 	public Text[] PlayerScore;
-	//public SaveData saveData;
-	[SerializeField] private int[] playerScores;
 
 	void Start()
 	{
-		// int totalPlayers = Data.TotalPlayers;
-
-		playerScores = new int[PlayerScore.Length];
 		for (int i = 0; i < PlayerScore.Length; i++)
 		{
-			PlayerScore[i].text = "0";
-			//PlayerScore[i].text = saveData.playerScores[i].ToString();
+			// get palyer score from GameSettings
+			int score = GameSettings.Instance.GetScore(i + 1);
+			PlayerScore[i].text = score.ToString();
 		}
 
 	}
 
 	public void AddPlayerScore(int playerNum)
 	{
-		Debug.Log("playerNum:" + playerNum);
+		//Debug.Log("playerNum:" + playerNum);
 		if (playerNum > 0 && playerNum < (PlayerScore.Length + 1))
 		{
-			playerScores[playerNum]++;
+			GameSettings.Instance.AddScore(playerNum);
 
-			PlayerScore[playerNum].text = playerScores[playerNum].ToString();
+			PlayerScore[playerNum - 1].text =
+				GameSettings.Instance.GetScore(playerNum).ToString();
 		}
 		else
 		{

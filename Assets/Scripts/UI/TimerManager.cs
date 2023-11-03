@@ -47,7 +47,7 @@ public class TimerManager : MonoBehaviour
 	public void StartTimer()
 	{
 		_isTimerActive = true;
-		Debug.Log("_isTimerActive = true;");
+		//Debug.Log("_isTimerActive = true;");
 
 	}
 

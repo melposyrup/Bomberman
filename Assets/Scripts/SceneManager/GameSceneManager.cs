@@ -10,8 +10,7 @@ using UnityEngine.Events;
 public class GameSceneManager : SceneManagerBase
 {
 
-	[SerializeField] private int _alivePlayerCount;
-	[SerializeField] private bool _isGameEnd = false;
+	[SerializeField] private int _playerCount;
 
 	public GameEventManager EventManager;
 	public TimerManager Timer;
@@ -27,6 +26,45 @@ public class GameSceneManager : SceneManagerBase
 
 	#endregion
 
+	#region Player Death
+	private Dictionary<int, bool> playerLife;
+	public void HandlePlayerDeath(int playerNum)
+	{
+		_playerCount--;
+		playerLife[playerNum] = false;
+
+		// end of game
+		if (_playerCount < 2)
+		{
+			//find surviving player
+			int? lastAlive = FindLastAlivePlayer();
+
+			//add score to surviving player
+			if (lastAlive != null)
+			{
+				EventManager.AddPlayerScore.Invoke((int)lastAlive);
+				GameSettings.Instance.LastWinner = (int)lastAlive;
+			}
+			else { GameSettings.Instance.LastWinner = 0; }
+
+			sceneStateMachine.ChangeState(EndState);
+		}
+	}
+
+	private int? FindLastAlivePlayer()
+	{
+		int? lastAlivePlayerId = null;
+
+		foreach (var pair in playerLife)
+		{
+			if (pair.Value) { lastAlivePlayerId = pair.Key; }
+		}
+
+		return lastAlivePlayerId;
+	}
+
+	#endregion
+
 	protected virtual void Awake()
 	{
 		EventManager = this.GetComponent<GameEventManager>();
@@ -36,22 +74,28 @@ public class GameSceneManager : SceneManagerBase
 		StartState = new GameStartState(this);
 		HurryState = new GameHurryState(this);
 		EndState = new GameEndState(this);
+
+		playerLife = new Dictionary<int, bool>();
+
 	}
 	protected virtual void Start()
 	{
 		sceneStateMachine.Initialize(EnterState);
-		// Initialize the number of alive players by finding them via their tag
-		_alivePlayerCount = GameObject.FindGameObjectsWithTag("Player").Length;
 
 		Timer = GameObject.Find("Timer").GetComponent<TimerManager>();
 		if (!Timer) { Debug.Log("TimerPrefab is Undefined"); }
+
+		// Initialize all players living status
+		_playerCount = GameSettings.Instance.PlayerCount;
+		for (int playerId = 1; playerId < _playerCount + 1; playerId++)
+		{
+			playerLife[playerId] = true;
+		}
 	}
 
 	protected virtual void Update()
 	{
 		sceneStateMachine.CurrentState.UpdateState();
-
-		if (_isGameEnd) { sceneStateMachine.ChangeState(EndState); }
 
 		//test
 		if (Input.GetKeyDown(KeyCode.I))
@@ -61,15 +105,7 @@ public class GameSceneManager : SceneManagerBase
 		}
 	}
 
-	#region Player Variables
-	public void HandlePlayerDeath()
-	{
-		_alivePlayerCount--;
-		if (_alivePlayerCount == 1) { _isGameEnd = true; }
-		Debug.Log("_alivePlayerCount =" + _alivePlayerCount);
 
-	}
-	#endregion
 
 
 }
@@ -89,7 +125,7 @@ public class GameEnterState : SceneState
 
 	public override void EnterState()
 	{
-		Debug.Log("GameEnterState");
+		//Debug.Log("GameEnterState");
 		// 1. fading in
 		// 2. READY GO ¤Î¥á¥Ã¥»©`¥¸¤ò±íÊ¾
 		// 3. players uncontrollable
@@ -121,7 +157,7 @@ public class GameStartState : SceneState
 
 	public override void EnterState()
 	{
-		Debug.Log("GameStartState");
+		//Debug.Log("GameStartState");
 		// 1. players controllable
 		// 2. Start Timer 
 		gameSceneManager.EventManager.StartGameScene.Invoke();
@@ -154,7 +190,7 @@ public class GameHurryState : SceneState
 
 	public override void EnterState()
 	{
-		Debug.Log("GameUrgentCountdownState");
+		//Debug.Log("GameUrgentCountdownState");
 		// 1. start Hurry animation (HURRY UP !)
 		// 2. change player move speed
 		gameSceneManager.EventManager.HurryGameScene.Invoke();
@@ -181,10 +217,11 @@ public class GameEndState : SceneState
 
 	public override void EnterState()
 	{
-		Debug.Log("GameEndState");
+		//Debug.Log("GameEndState");
 		// 1. stop timer
 		// 2. players uncontrollable
 		gameSceneManager.EventManager.EndGameScene.Invoke();
+
 	}
 
 	public override void UpdateState()
@@ -204,7 +241,7 @@ public class GameEndState : SceneState
 		{
 			// change scene
 			gameSceneManager.SceneChange(3);
-			Debug.Log("SceneChange");
+			//Debug.Log("SceneChange");
 		}
 
 	}

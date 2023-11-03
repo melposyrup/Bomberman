@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameEventManager: {fileID: 0}
   Bomb: {fileID: 6564003383231873774, guid: 2aac503b56f3c394e81c225a569f9bf0, type: 3}
+  _playerMoveSpeed: 4
   _bombPlaceNum: 0
   _bombMaxNum: 1
   _firePowerNum: 0

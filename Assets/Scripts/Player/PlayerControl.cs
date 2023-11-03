@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 	float InputHorizontal = 0;
 	float InputVertical = 0;
 	// プレイヤーの移動速度
-	float _playerMoveSpeed = 6.0f;
+	[SerializeField] private float _playerMoveSpeed = 4.0f;
 
 	// プレイヤーの行動
 	// 現在ステージに設置している爆弾の数
@@ -120,6 +120,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 		// 入力された方向に移動する
 		// Calculate movement direction
 		Vector3 move = new Vector3(InputHorizontal, 0, InputVertical);
+		move = move.normalized;
 
 		// Apply movement vector 
 		transform.Translate(move * _playerMoveSpeed * Time.deltaTime, Space.World);
@@ -127,7 +128,10 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 		// Change orientation to face the direction of movement
 		if (move != Vector3.zero)
 		{
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move.normalized), 0.15f);
+			float rotateSpeed = 15f;
+			transform.rotation = Quaternion.Slerp(transform.rotation,
+				Quaternion.LookRotation(move.normalized),
+				rotateSpeed * Time.deltaTime);
 		}
 	}
 
@@ -227,6 +231,6 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 
 	public void HurryUpMoveSpeed()
 	{
-		_playerMoveSpeed = 12.0f;
+		_playerMoveSpeed = 8.0f;
 	}
 }

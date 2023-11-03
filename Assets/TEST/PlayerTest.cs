@@ -124,7 +124,6 @@ public class PlayerTest : MonoBehaviour, ITriggerCheckable
 			//TODO: play death sound
 
 			//TODO: call death event
-			EventManager.Instance.OnPlayerDeath.Invoke(PLAYER_NUM);
 
 			//TODO: play death animation, when animation is over call destory
 			OnDestroy();

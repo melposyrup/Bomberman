@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class HurryUp : MonoBehaviour
 {
-	public float speed = 300.0f; 
-	private RectTransform _rectTransform; 
+	public float speed = 700.0f;
+	private RectTransform _rectTransform;
+	private RectTransform _rectTransformCanvas;
 
 	void Start()
 	{
 		_rectTransform = this.GetComponent<RectTransform>();
-		float initialYPosition = -Screen.height / 2 - _rectTransform.rect.height / 2;
+		_rectTransformCanvas = this.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+		float initialYPosition =
+			-_rectTransformCanvas.rect.height / 2 - _rectTransform.rect.height / 2;
 		_rectTransform.anchoredPosition = new Vector2(0, initialYPosition);
 	}
 
@@ -18,7 +21,8 @@ public class HurryUp : MonoBehaviour
 	{
 		_rectTransform.anchoredPosition += new Vector2(0, speed * Time.deltaTime);
 
-		if (_rectTransform.anchoredPosition.y - _rectTransform.rect.height > Screen.height)
+		if (_rectTransform.anchoredPosition.y - _rectTransform.rect.height / 2
+			> _rectTransformCanvas.rect.height / 2)
 		{
 			this.enabled = false;
 		}
@@ -26,6 +30,6 @@ public class HurryUp : MonoBehaviour
 
 	public void Active()
 	{
-		this.enabled = true;	
+		this.enabled = true;
 	}
 }

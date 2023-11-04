@@ -14,7 +14,9 @@ public class ResultSceneManager : SceneManagerBase
 {
 	public KeyCode InputNewGame = KeyCode.A;
 
-	// cooldown time for starting new game
+	private bool _hasWinner = false;
+
+	// cooldown for input key
 	private float _countdown = 2;
 
 	// setup prefabs in inspector
@@ -37,7 +39,10 @@ public class ResultSceneManager : SceneManagerBase
 	[SerializeField] private Vector3 scoreTargetPosition = Vector3.zero;
 
 	private void Start()
-	{	
+	{
+		// check if there is a winner
+		CheckWinner();
+
 		// show player models and scores
 		InstantiatePlayerModelsAndScores();
 
@@ -57,28 +62,44 @@ public class ResultSceneManager : SceneManagerBase
 	private void Update()
 	{
 		// press the key to load GameScene
-		PressKeyToStartNewGame();
+		PressKeyForSceneChange();
 	}
 
+	/// <summary>
+	/// if someone has 3 scores, set _hasWinner to true
+	/// </summary>
+	private void CheckWinner()
+	{
+		// get score date from GameSettings
+		foreach (var pair in GameSettings.Instance.PlayerScores)
+		{
+			if (pair.Value >= 3)
+			{
+				_hasWinner = true;
+				break;
+			}
+		}
+	}
 
 	/// <summary>
-	/// scene change with fading in animation
+	/// scene change with fadingIn animation
 	/// </summary>
-	private void PressKeyToStartNewGame()
+	private void PressKeyForSceneChange()
 	{
 		if (_countdown < 0)
 		{
 			if (Input.GetKeyDown(InputNewGame))
 			{
 				FadingImage.StartFadingIn();
-				Invoke("StartNewGameAfterDelay", 1f);
+				Invoke("StartNewGame", 1f);
 			}
 		}
 		else { _countdown -= Time.deltaTime; }
 	}
-	private void StartNewGameAfterDelay()
+	private void StartNewGame()
 	{
-		SceneChange(SceneManagerBase.EScene.GameScene);
+		if (_hasWinner) { SceneChange(SceneManagerBase.EScene.WinnerScene); }
+		else { SceneChange(SceneManagerBase.EScene.GameScene); }
 	}
 
 	/// <summary>
@@ -121,7 +142,7 @@ public class ResultSceneManager : SceneManagerBase
 
 			// if this player is the winner,
 			// update scoreTargetPosition,
-			// keep the last score for scoreAnimation
+			// keep the last score for ScoreMovingAnimation()
 			if (i + 1 == GameSettings.Instance.LastWinner)
 			{
 				scoreTargetPosition = playerTransforms[i].position
@@ -167,6 +188,8 @@ public class ResultSceneManager : SceneManagerBase
 			yield return null;
 		}
 		scoreTransfrom.position = scoreTargetPosition;
+
+		//TODO: play WinAnimation of player
 	}
 
 

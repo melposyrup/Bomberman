@@ -15,28 +15,26 @@ public class SceneManagerBase : MonoBehaviour
 	}
 
 	/// <summary>
-	/// TitleScene		0 
-	/// SelectionScene	1
-	/// GameScene			2
-	/// ResultScene		3
-	/// WinnerScene		4
+	/// <para> 0 TitleScene		</para>
+	/// <para> 1 SelectionScene	</para>
+	/// <para> 2 GameScene		</para>
+	/// <para> 3 ResultScene		</para>
+	/// <para> 4 WinnerScene	</para>
 	/// </summary>
 	public void SceneChange(EScene sceneNum)
 	{
-		//EventManager.Instance.DestroySingleton();
 		SceneManager.LoadScene((int)sceneNum);
 	}
 
 	/// <summary>
-	/// TitleScene		0
-	/// SelectionScene	1
-	/// GameScene			2
-	/// ResultScene		3
-	/// WinnerScene		4
+	/// <para> 0 TitleScene		</para>
+	/// <para> 1 SelectionScene	</para>
+	/// <para> 2 GameScene		</para>
+	/// <para> 3 ResultScene		</para>
+	/// <para> 4 WinnerScene	</para>
 	/// </summary>
 	public void SceneChange(int sceneNum)
 	{
-		//EventManager.Instance.DestroySingleton();
 		SceneManager.LoadScene(sceneNum);
 	}
 

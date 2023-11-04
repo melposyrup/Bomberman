@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// state change in GameScene
-// Enter -> Start -> ->End -> MoveToResult
-// Enter -> Start -> UrgentCountdown -> End -> MoveToResult
+/// <summary>
+/// <para> state change in GameScene </para>
+/// <para> Enter -> Start -> ->End -> MoveToResult </para>
+/// <para> Enter -> Start -> Hurry -> End -> MoveToResult </para>
+/// </summary>
 
 public class GameSceneManager : SceneManagerBase
 {
@@ -166,7 +168,7 @@ public class GameStartState : SceneState
 
 	public override void UpdateState()
 	{
-		// if Timer < 60 seconds, change state to UrgentCountdownState
+		// if Timer < 60 seconds, change state to HurryState
 		if (gameSceneManager.Timer.GetMinutes() < 1)
 		{
 			gameSceneManager.sceneStateMachine.ChangeState(
@@ -190,7 +192,7 @@ public class GameHurryState : SceneState
 
 	public override void EnterState()
 	{
-		//Debug.Log("GameUrgentCountdownState");
+		//Debug.Log("HurryState");
 		// 1. start Hurry animation (HURRY UP !)
 		// 2. change player move speed
 		gameSceneManager.EventManager.HurryGameScene.Invoke();
@@ -239,20 +241,7 @@ public class GameEndState : SceneState
 		}
 		else
 		{
-			// get score date from GameSettings
-			bool findWinner = false;
-			foreach (var pair in GameSettings.Instance.PlayerScores)
-			{
-				if (pair.Value >= 3)
-				{
-					findWinner = true;
-					break;
-				}
-			}
-
-			// if someone gets 3 points, go to WinnerScene
-			if (findWinner) { gameSceneManager.SceneChange(SceneManagerBase.EScene.WinnerScene); }
-			else { gameSceneManager.SceneChange(SceneManagerBase.EScene.ResultScene); }
+			gameSceneManager.SceneChange(SceneManagerBase.EScene.ResultScene);
 		}
 
 	}

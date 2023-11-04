@@ -7,7 +7,7 @@ public class FadingImage : MonoBehaviour
 {
 	private Image _image;
 
-	void Start()
+	void Awake()
 	{
 		_image = this.GetComponent<Image>();
 		_image.color = new Color(0, 0, 0, 0);

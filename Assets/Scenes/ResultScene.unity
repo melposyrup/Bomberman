@@ -346,7 +346,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputNewGame: 97
   PlayerModelPrefab: {fileID: 2418272398370687919, guid: 49aaa6805830fe6418d1d8955f875f9c, type: 3}
+  ScorePrefab: {fileID: 8868190129411204311, guid: 5241b2d615badb04cab579e06c899676, type: 3}
+  FadingImage: {fileID: 6543316548157338328}
   playerTransforms: []
+  scoreTransfrom: {fileID: 0}
+  scoreStartPosition: {x: 0, y: 0, z: -6}
+  scoreTargetPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &658092939
 Transform:
   m_ObjectHideFlags: 0
@@ -446,63 +451,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1962923994913560216
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4025399382257107654, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_Name
-      value: BomberMan_Star
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4365896540795132028, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7ecf4889c0d8c9447bbbf00083c6c468, type: 3}
 --- !u!1 &5395452501074065936
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &6543316548157338328
 MonoBehaviour:
   m_ObjectHideFlags: 0

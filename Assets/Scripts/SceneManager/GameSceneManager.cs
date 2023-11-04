@@ -45,7 +45,7 @@ public class GameSceneManager : SceneManagerBase
 				EventManager.AddPlayerScore.Invoke((int)lastAlive);
 				GameSettings.Instance.LastWinner = (int)lastAlive;
 			}
-			else { GameSettings.Instance.LastWinner = 0; }
+			else { GameSettings.Instance.LastWinner = 0; } // draw
 
 			sceneStateMachine.ChangeState(EndState);
 		}
@@ -239,9 +239,20 @@ public class GameEndState : SceneState
 		}
 		else
 		{
-			// change scene
-			gameSceneManager.SceneChange(3);
-			//Debug.Log("SceneChange");
+			// get score date from GameSettings
+			bool findWinner = false;
+			foreach (var pair in GameSettings.Instance.PlayerScores)
+			{
+				if (pair.Value >= 3)
+				{
+					findWinner = true;
+					break;
+				}
+			}
+
+			// if someone gets 3 points, go to WinnerScene
+			if (findWinner) { gameSceneManager.SceneChange(SceneManagerBase.EScene.WinnerScene); }
+			else { gameSceneManager.SceneChange(SceneManagerBase.EScene.ResultScene); }
 		}
 
 	}

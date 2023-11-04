@@ -3,76 +3,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// <para>Setup following prefabs in inspector:</para>
+/// <para>- PlayerModelPrefab</para>
+/// <para>- ScorePrefab</para>
+/// <para>- FadingImage</para>
+/// </summary>
+
 public class ResultSceneManager : SceneManagerBase
 {
 	public KeyCode InputNewGame = KeyCode.A;
 
+	// cooldown time for starting new game
 	private float _countdown = 2;
 
+	// setup prefabs in inspector
 	public GameObject PlayerModelPrefab;
-	// player model position
-	private float startY = 5.0f; // Y's maximum value
-	private float endY = -5.0f; // Y's minimum value
-	private float posX = -6f;
-	private float posZ = 4f;
+	public GameObject ScorePrefab;
+	public FadingImage FadingImage;
+
+	// for player model position calculation
+	private float _startY = 5.0f; // Y's maximum value
+	private float _endY = -5.0f; // Y's minimum value
+	private float _startX = -6f;
+	// for player score position calculation
+	private float _distanceX = 3f;
+	private float _fixedZ = 4f;
+	private float _timeToMove = 2f;
 
 	[SerializeField] private Transform[] playerTransforms;
+	[SerializeField] private Transform scoreTransfrom;
+	[SerializeField] private Vector3 scoreStartPosition = new Vector3(0, 0, -6);
+	[SerializeField] private Vector3 scoreTargetPosition = Vector3.zero;
 
 	private void Start()
-	{
-		// if someone gets 3 points, go to WinnerScene
-		CheckPlayerScore();
-
+	{	
 		// show player models and scores
 		InstantiatePlayerModelsAndScores();
 
-		// intialize settings for star animation
+		// play startAnimation if not draw
 		if (GameSettings.Instance.LastWinner != 0)
 		{
-			//!playAnimation if not draw
+			scoreTransfrom = Instantiate(ScorePrefab,
+				scoreStartPosition,
+				Quaternion.identity).transform;
+			ScoreMovingAnimation();
 		}
+
+		// play fade out animation
+		if (FadingImage) { FadingImage.StartFadingOut(); }
 	}
-
-
 
 	private void Update()
 	{
 		// press the key to load GameScene
-		StartNewGame();
-
-		// play star animation
-
+		PressKeyToStartNewGame();
 	}
 
 
-
-	private void StartNewGame()
+	/// <summary>
+	/// scene change with fading in animation
+	/// </summary>
+	private void PressKeyToStartNewGame()
 	{
 		if (_countdown < 0)
 		{
 			if (Input.GetKeyDown(InputNewGame))
 			{
-				SceneChange(SceneManagerBase.EScene.GameScene);
+				FadingImage.StartFadingIn();
+				Invoke("StartNewGameAfterDelay", 1f);
 			}
 		}
 		else { _countdown -= Time.deltaTime; }
 	}
-
-	private void CheckPlayerScore()
+	private void StartNewGameAfterDelay()
 	{
-		// get score date from GameSettings
-		bool findWinner = false;
-		foreach (var pair in GameSettings.Instance.PlayerScores)
-		{
-			if (pair.Value >= 3)
-			{
-				findWinner = true;
-				break;
-			}
-		}
-		if (findWinner) { SceneChange(SceneManagerBase.EScene.WinnerScene); }
+		SceneChange(SceneManagerBase.EScene.GameScene);
 	}
 
+	/// <summary>
+	/// automatically calculate positions of Prefabs and instantiate them
+	/// </summary>
 	private void InstantiatePlayerModelsAndScores()
 	{
 		int playerCount = GameSettings.Instance.PlayerCount;
@@ -80,21 +91,22 @@ public class ResultSceneManager : SceneManagerBase
 
 		playerTransforms = new Transform[playerCount];
 
-		float interval = (startY - endY) / (playerCount - 1);
+		float interval = (_startY - _endY) / (playerCount - 1);
 
+		// for each player
 		for (int i = 0; i < playerCount; i++)
 		{
 			// instantiate player model
-			float posY = startY - (interval * i);
 			GameObject newPlayerModel = Instantiate(PlayerModelPrefab);
 			playerTransforms[i] = newPlayerModel.transform;
 
 			// set player model position
-			playerTransforms[i].position = new Vector3(posX, posY, posZ);
+			float posY = _startY - (interval * i);
+			playerTransforms[i].position = new Vector3(_startX, posY, _fixedZ);
 
 			// set player model color
-			Color newPlayerColor = GameSettings.Instance.GetColor(i + 1);
 			//TODO: set player model color by SetPlayerColor() in PlayerController.cs
+			Color newPlayerColor = GameSettings.Instance.GetColor(i + 1);
 
 			MeshRenderer meshRenderer = newPlayerModel.GetComponent<MeshRenderer>();
 			if (meshRenderer != null)
@@ -104,36 +116,58 @@ public class ResultSceneManager : SceneManagerBase
 				meshRenderer.material = newMat;
 			}
 
-			// instantiate player scores
+			// process player scores
+			int score = GameSettings.Instance.GetScore(i + 1);
 
+			// if this player is the winner,
+			// update scoreTargetPosition,
+			// keep the last score for scoreAnimation
+			if (i + 1 == GameSettings.Instance.LastWinner)
+			{
+				scoreTargetPosition = playerTransforms[i].position
+					+ new Vector3(_distanceX * score, 0, 0);
+				score -= 1;
+			}
 
-
+			for (int j = 0; j < score; j++)
+			{
+				// instantiate score prefab
+				GameObject newScore = Instantiate(ScorePrefab);
+				// set position
+				Vector3 pos = playerTransforms[i].position
+					+ new Vector3(_distanceX * (j + 1), 0, 0);
+				newScore.transform.position = pos;
+			}
 		}
 	}
 
 
+	/// <summary>
+	/// move scorePrefab from screen center to the target position in 2 seconds
+	/// </summary>
+	private void ScoreMovingAnimation()
+	{
+		StartCoroutine(MoveToPosition());
+	}
+	private IEnumerator MoveToPosition()
+	{
+		var startPosition = scoreTransfrom.position;
+		var timePassed = 0f;
 
+		while (timePassed < _timeToMove)
+		{
+			var lerpValue = timePassed / _timeToMove;
 
+			// Update the position of the ScoreTransform
+			scoreTransfrom.position = Vector3.Lerp(
+				startPosition, scoreTargetPosition, lerpValue);
 
+			timePassed += Time.deltaTime;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			yield return null;
+		}
+		scoreTransfrom.position = scoreTargetPosition;
+	}
 
 
 

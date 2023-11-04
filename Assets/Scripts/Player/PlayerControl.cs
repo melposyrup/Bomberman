@@ -29,7 +29,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 	[Header("BUFF and DEBUFF Effects from 5 Types of Items")]
 	// !プレイヤーのバフ、デバフ
 	// 爆弾所持数
-	[SerializeField] int _bombMaxNum = 1;
+	[SerializeField] int _bombMaxNum = 2;
 	public void IncreaseBombMaxNum() { _bombMaxNum++; }
 
 	// 火力

@@ -8,11 +8,18 @@ public class SelectionSceneManager : SceneManagerBase
 	public KeyCode InputRightArrow = KeyCode.RightArrow;
 	public KeyCode InputSelect = KeyCode.Return;
 
+	[SerializeField] private FadingImage _fadingImage;
+
+	private void Start()
+	{
+		if (_fadingImage) { _fadingImage.StartFadingOut(); }
+	}
+
 	private void Update()
 	{
 		//player model selection
 
-		// all the players are selected, go to game scene
+		// if all the players are selected, go to game scene
 	}
 
 }

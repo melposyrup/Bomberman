@@ -463,7 +463,6 @@ GameObject:
   - component: {fileID: 5395452501074065950}
   - component: {fileID: 5395452501074065951}
   - component: {fileID: 5395452501074065948}
-  - component: {fileID: 5395452501074065938}
   m_Layer: 5
   m_Name: CanvasResult
   m_TagString: Untagged
@@ -471,20 +470,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5395452501074065938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5395452501074065936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f1756781f43104f89e503b61e63605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GOMessage: {fileID: 0}
-  READYMessage: {fileID: 0}
 --- !u!224 &5395452501074065945
 RectTransform:
   m_ObjectHideFlags: 0

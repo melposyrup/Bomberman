@@ -7,7 +7,7 @@ public class SelectionSceneManager : SceneManagerBase
 	public KeyCode InputLeftArrow= KeyCode.LeftArrow;
 	public KeyCode InputRightArrow = KeyCode.RightArrow;
 	public KeyCode InputSelect = KeyCode.Return;
-
+	
 	// Œ»İ‚Ì‘I‘ğ‰æ–Ê
 	private int _selectScene = 0;
 	// Œ»İ‘I‚ñ‚Å‚¢‚éêŠ
@@ -47,7 +47,7 @@ public class SelectionSceneManager : SceneManagerBase
 
 	// select players
 	void SelectPlayerModel()
-    {		
+	{
 		// Button Input
 		if (Input.GetKeyDown(InputLeftArrow))
 		{
@@ -61,8 +61,5 @@ public class SelectionSceneManager : SceneManagerBase
 		{
 			_selectScene++;
 		}
-
-		
 	}
-
 }

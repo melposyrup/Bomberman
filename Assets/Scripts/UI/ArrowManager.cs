@@ -20,19 +20,19 @@ public class ArrowManager : MonoBehaviour
 		// Move Arrow
 		if (_selNum.SelectNum == 0)
 		{
-			transform.position = new Vector3(-7.5f, 2, 0);
+			transform.localPosition = new Vector3(-7.5f, 0, 0);
 		}
 		else if (_selNum.SelectNum == 1)
 		{
-			transform.position = new Vector3(-2.5f, 2, 0);
+			transform.localPosition = new Vector3(-2.5f, 0, 0);
 		}
 		else if (_selNum.SelectNum == 2)
 		{
-			transform.position = new Vector3(2.5f, 2, 0);
+			transform.localPosition = new Vector3(2.5f, 0, 0);
 		}
 		else if (_selNum.SelectNum == 3)
 		{
-			transform.position = new Vector3(7.5f, 2, 0);
+			transform.localPosition = new Vector3(7.5f, 0, 0);
 		}
 		else if (_selNum.SelectNum < 0)
 		{

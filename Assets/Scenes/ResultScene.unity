@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputNewGame: 97
-  PlayerModelPrefab: {fileID: 2418272398370687919, guid: 49aaa6805830fe6418d1d8955f875f9c, type: 3}
+  PlayerModelPrefab: {fileID: 7889708187041369974, guid: a17b3db788645904abb241b1c799d5bf, type: 3}
   ScorePrefab: {fileID: 8868190129411204311, guid: 5241b2d615badb04cab579e06c899676, type: 3}
   FadingImage: {fileID: 6543316548157338328}
   playerTransforms: []
@@ -570,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6543316548157338328
 MonoBehaviour:
   m_ObjectHideFlags: 0

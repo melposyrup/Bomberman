@@ -34,14 +34,5 @@ public class ArrowManager : MonoBehaviour
 		{
 			transform.localPosition = new Vector3(7.5f, 0, 0);
 		}
-		else if (_selNum.SelectNum < 0)
-		{
-			_selNum.SelectNum = 3;
-		}
-		else if (_selNum.SelectNum > 3)
-		{
-			_selNum.SelectNum = 0;
-		}
-
 	}
 }

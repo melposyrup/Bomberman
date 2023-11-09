@@ -9,7 +9,7 @@ public class ArrowManager : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Start()
-    {
+	{
 		SelMng = GameObject.Find("SelectionManager");
 		_selNum = SelMng.GetComponent<SelectionSceneManager>();
 	}

@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// プレイヤーカラー
+public static class GlobalVariables
+{
+	// プレイヤーカラー
+	public static int SelectColor1P = 0;
+	public static int SelectColor2P = 0;
+}
+
 public class SelectionSceneManager : SceneManagerBase
 {
 	public KeyCode InputLeftArrow= KeyCode.LeftArrow;
@@ -14,14 +22,17 @@ public class SelectionSceneManager : SceneManagerBase
 	public int SelectNum = 0;
 	// 選択中の人
 	private int _selectPlayer = 0;
-	// プレイヤーカラー
-	public int SelectColor1P = 0;
-	public int SelectColor2P = 0;
+	// 効果音
+	public AudioClip Button;
+	public AudioClip Decide;
+	AudioSource _audioSource;
+
 
 	[SerializeField] private FadingImage _fadingImage;
 
 	private void Start()
 	{
+		_audioSource = GetComponent<AudioSource>();
 		if (_fadingImage) { _fadingImage.StartFadingOut(); }
 	}
 
@@ -56,17 +67,20 @@ public class SelectionSceneManager : SceneManagerBase
 				// プレイヤー１のキャラ選択
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
+					_audioSource.PlayOneShot(Button);
 					SelectNum--;
 				}
 				else if (Input.GetKeyDown(InputRightArrow))
 				{
+					_audioSource.PlayOneShot(Button);
 					SelectNum++;
 				}
 				else if (Input.GetKeyDown(InputSelect))
 				{
-					SelectColor1P = SelectNum;
+					_audioSource.PlayOneShot(Decide);
+					GlobalVariables.SelectColor1P = SelectNum;
 					// 選択場所をリセット
-					if (SelectColor1P == 0)
+					if (GlobalVariables.SelectColor1P == 0)
 					{
 						SelectNum = 1;
 					}
@@ -75,7 +89,6 @@ public class SelectionSceneManager : SceneManagerBase
 						SelectNum = 0;
 					}
 					_selectPlayer++;
-
 				}
 				else if(SelectNum < 0)
 				{
@@ -91,29 +104,32 @@ public class SelectionSceneManager : SceneManagerBase
 				// プレイヤー２のキャラ選択
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
+					_audioSource.PlayOneShot(Button);
 					SelectNum--;
-					if (SelectNum == SelectColor1P) 
+					if (SelectNum == GlobalVariables.SelectColor1P) 
                     {
-						SelectNum--;
-                    }
+						SelectNum--;						
+					}
 				}
 				else if (Input.GetKeyDown(InputRightArrow))
 				{
+					_audioSource.PlayOneShot(Button);
 					SelectNum++;
-					if (SelectNum == SelectColor1P)
+					if (SelectNum == GlobalVariables.SelectColor1P)
 					{
 						SelectNum++;
 					}
 				}
 				else if (Input.GetKeyDown(InputSelect))
 				{
-					SelectColor2P = SelectNum;
+					_audioSource.PlayOneShot(Decide);
+					GlobalVariables.SelectColor2P = SelectNum;
 					// シーンを移動
 					_selectScene++;
 				}
 				else if (SelectNum < 0)
 				{
-					if(SelectColor1P == 3)
+					if(GlobalVariables.SelectColor1P == 3)
 					{
 						SelectNum = 2;
 					}
@@ -124,7 +140,7 @@ public class SelectionSceneManager : SceneManagerBase
 				}
 				else if (SelectNum > 3)
 				{
-					if (SelectColor1P == 0)
+					if (GlobalVariables.SelectColor1P == 0)
 					{
 						SelectNum = 1;
 					}
@@ -134,7 +150,6 @@ public class SelectionSceneManager : SceneManagerBase
 					}
 				}
 				break;
-
 		}
 	}
 }

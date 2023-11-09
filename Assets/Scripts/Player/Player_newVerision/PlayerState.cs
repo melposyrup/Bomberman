@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.iOS;
+using static ItemBase;
 
 public class PlayerState
 {
@@ -48,11 +49,15 @@ public class PlayerIdleState : PlayerState
 					player.BombPrefab.GetComponent<SphereCollider>().radius;
 				Vector3 spawnPosition =
 					player.transform.position + new Vector3(0f, bombHeight, 0f);
-				GameObject bomb = GameObject.Instantiate(
+				GameObject bombObj = GameObject.Instantiate(
 					player.BombPrefab, spawnPosition, Quaternion.identity);
-				bomb.layer = LayerMask.NameToLayer("InitialBomb");
-				bomb.GetComponent<Bomb>().SetPlacedBy(player.transform);
-				bomb.GetComponent<Bomb>().SetCounting(true);
+				bombObj.layer = LayerMask.NameToLayer("InitialBomb");
+				Bomb bomb= bombObj.GetComponent<Bomb>();
+				// setup bomb parameters based on player attributes
+				bomb.SetPlacedBy(player.transform);
+				bomb.SetCounting(true);
+				bomb.BombRed(player.Attribute.GetKey(ItemType.Fire));
+				bomb.BombPowerUP(player.Attribute.GetKey(ItemType.BombUp));
 			}
 			player.IsBombPressed = false;
 		}
@@ -99,6 +104,8 @@ public class PlayerHoldState : PlayerState
 		bomb = _bomb.GetComponent<Bomb>();
 		bomb.SetOnHoldStatus(true);
 		bomb.SetHoldedBy(player.transform);
+		bomb.BombRed(player.Attribute.GetKey(ItemType.Fire));
+		bomb.BombPowerUP(player.Attribute.GetKey(ItemType.BombUp));
 
 		// decrese player speed
 		player.SetSpeedHold();

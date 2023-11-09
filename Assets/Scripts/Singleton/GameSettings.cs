@@ -19,9 +19,14 @@ public class GameSettings : MonoBehaviour
 
 
 	// store the scores of the players
-	public Dictionary<int, int> PlayerScores;
-	public Dictionary<int, Color> PlayerColors;
-	public Dictionary<int, bool> PlayerNumberSetup;
+	//public Dictionary<int, bool> PlayerNumberSetup;
+	//public Dictionary<int, int> PlayerScores;
+	//public Dictionary<int, Color> PlayerColors;
+
+	public Dictionary<int, PlayerInfo> PlayerInfoDictionary;
+
+
+
 
 	// PlayerMaterials[0] white
 	// PlayerMaterials[1] black
@@ -36,9 +41,9 @@ public class GameSettings : MonoBehaviour
 		if (Instance == null)
 		{
 			Instance = this;
-			PlayerScores = new Dictionary<int, int>();
-			PlayerColors = new Dictionary<int, Color>();
-			PlayerNumberSetup = new Dictionary<int, bool>();
+
+			PlayerInfoDictionary = new Dictionary<int, PlayerInfo>();
+
 			DontDestroyOnLoad(gameObject);
 			
 			// test
@@ -56,30 +61,38 @@ public class GameSettings : MonoBehaviour
 	/// </summary>
 	public void InitializeAll()
 	{
-		PlayerScores.Clear();
-		PlayerColors.Clear();
-		PlayerNumberSetup.Clear();
+		PlayerInfoDictionary.Clear();
+
+
 	}
 
 	// be called before change to gameScene
 	private void InitializePlayerNumberSetup()
     {
-		PlayerNumberSetup.Clear();
-        for (int i = 1; i <= PlayerCount; i++)
-        {
-            PlayerNumberSetup[i] = true;
-        }
-    }
+		PlayerInfoDictionary.Clear();
+		for (int i = 1; i <= PlayerCount; i++)
+		{
+			Material material = PlayerMaterials[GlobalVariables.SelectColor1P];
+			PlayerInfo playerInfo = new PlayerInfo(true, 0, material); 
+			PlayerInfoDictionary[i] = playerInfo;
+		}
+	}
 
 	// be called in PlayerController
 	public int GetAvailablePlayerNumber()
 	{
-		foreach (KeyValuePair<int, bool> playerNumber in PlayerNumberSetup)
+		foreach (KeyValuePair<int, PlayerInfo> playerInfoEntry in PlayerInfoDictionary)
 		{
-			if (playerNumber.Value)
+			if (playerInfoEntry.Value.Available)
 			{
-            PlayerNumberSetup[playerNumber.Key] = false;
-            return playerNumber.Key;
+				// get key
+				int playerNumber = playerInfoEntry.Key;
+				// revise value
+				PlayerInfo info = playerInfoEntry.Value;
+				info.Available = false; 
+				// put value back to dictionary
+				PlayerInfoDictionary[playerNumber] = info;
+				return playerNumber;
 			}
 		}
 
@@ -96,10 +109,12 @@ public class GameSettings : MonoBehaviour
 	/// <param name="score"></param>
 	public void AddScore(int playerId, int score = 1)
 	{
-		if (PlayerScores.ContainsKey(playerId))
+		if (PlayerInfoDictionary.ContainsKey(playerId))
 		{
-			PlayerScores[playerId] += score;
-			Debug.Log($"Find player: {playerId} , Score: {PlayerScores[playerId]}");
+			PlayerInfo info = PlayerInfoDictionary[playerId];
+			info.Score += score;
+
+			Debug.Log($"Find player: {playerId} , Score: {info.Score}");
 		}
 		else
 		{
@@ -110,25 +125,41 @@ public class GameSettings : MonoBehaviour
 
 	public int GetScore(int playerId)
 	{
-		if (PlayerScores.ContainsKey(playerId))
+		if (PlayerInfoDictionary.ContainsKey(playerId))
 		{
-			return PlayerScores[playerId];
+			return PlayerInfoDictionary[playerId].Score;
 		}
 		else
 		{
 			Debug.Log($"Create player: {playerId} , Score: 0");
-			PlayerScores.Add(playerId, 0);
+			PlayerInfo info = new PlayerInfo(true, 0, PlayerMaterials[0]);
+			PlayerInfoDictionary.Add(playerId, info);
 			return 0;
 		}		
 	}
 
-	public Color GetColor(int playerId)
+	public Material GetMaterial(int playerId)
 	{
-		if (PlayerColors.ContainsKey(playerId))
+		if (PlayerInfoDictionary.ContainsKey(playerId))
 		{
-			return PlayerColors[playerId];
+			return PlayerInfoDictionary[playerId].PlayerMaterial;
 		}
 
-		return Color.cyan;
+		return PlayerMaterials[0];
+	}
+}
+
+[System.Serializable] 
+public struct PlayerInfo
+{
+	public bool Available;
+	public int Score;
+	public Material PlayerMaterial;
+
+	public PlayerInfo(bool setupComplete, int score, Material playerMaterial)
+	{
+		Available = setupComplete;
+		Score = score;
+		PlayerMaterial = playerMaterial;
 	}
 }

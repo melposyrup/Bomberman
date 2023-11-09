@@ -63,8 +63,9 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 	{
 		IsCounting = isCounting; //Debug.Log("IsCounting : " + IsCounting);
 	}
-
 	#endregion
+	const float MAX_EXPLODE_TIMER = 3.0f;
+
 
 	#region State Machine Variables
 	public ItemOnKickState OnKickState { get; set; }
@@ -149,9 +150,9 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 			{
 				PingPongEmissionColor();
 			}
-			if (IsExplodeTimer < 0 )
+			if (IsExplodeTimer < 0)
 			{
-				if (Owner.TryGetComponent(out Player player))
+				if (Owner && Owner.TryGetComponent(out Player player))
 				{
 					player.BombCountRecover();
 				}
@@ -179,6 +180,30 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 
 	#endregion
 
+	public Color bombFireMax;
+	public void BombRed(int? level = 0)//fire
+	{
+		int maxLevel = 10;
+		if (level != null && level > 0 && level < maxLevel)
+		{
+			float factor = (float)level / (maxLevel-1);
+			Color color = bombFireMax * factor;
+			IsExplodeTimer = MAX_EXPLODE_TIMER - factor;
+		}
+	}
+	public void BombPowerUP(int? level = 0)//power
+	{
+		int maxLevel = 10;
+		if (level != null && level > 0 && level < maxLevel)
+		{
+			float bombPowerMax = 2f;
+			float bombPower = 1f + (float)level / (maxLevel - 1) * bombPowerMax;
+			this.transform.localScale *= bombPower;
+		}
+	}
+
+
+
 
 	protected override void FixedUpdate()
 	{
@@ -194,7 +219,7 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		{
 			GameObject explosion =
 				Instantiate(Explosion, transform.position, Quaternion.identity);
-			explosion.GetComponent<Explosion>().SetScale(transform.localScale.x);
+			explosion.GetComponent<Explosion>().SetScale(transform.localScale.magnitude);
 		}
 		else { Debug.Log("Explosion Prefab undefined"); }
 

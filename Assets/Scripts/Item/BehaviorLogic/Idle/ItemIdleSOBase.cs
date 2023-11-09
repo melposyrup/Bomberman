@@ -8,7 +8,7 @@ public class ItemIdleSOBase : ScriptableObject
 	protected Transform transform;
 	protected GameObject gameObject;
 
-	protected Transform playerTransform;
+	//protected Transform playerTransform;
 
 	public virtual void Initialize(GameObject gameObject, ItemBase itembase)
 	{
@@ -16,11 +16,14 @@ public class ItemIdleSOBase : ScriptableObject
 		this.transform = gameObject.transform;
 		this.itembase = itembase;
 
-		this.playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-		if (this.playerTransform == null)
-		{
-			Debug.LogError("Player Transform is null");
-		}
+
+		//GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+		//if (playerObject == null)
+		//{
+		//	Debug.LogError("Player object not found!");
+		//	return; 
+		//}
+		//playerTransform = playerObject.transform;
 	}
 
 	public virtual void DoEnterLogic() { }

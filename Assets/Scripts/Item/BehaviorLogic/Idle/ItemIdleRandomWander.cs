@@ -39,26 +39,17 @@ public class ItemIdleRandomWander : ItemIdleSOBase
 	{
 		base.DoUpdateLogic();
 
-
-		// Calculate the direction from current position to target position on the X-Z plane
-		// (x z)平面上での現在の位置から目標位置への方向を計算する
 		_direction = (_targetPos - transform.position).normalized;
 		_direction.y = 0;
 
-		// Move the Item
-		// アイテムを移動する
 		itembase.MoveItem(_direction * RandomWanderSpeed);
 
-		// Check if close to or at the target position
-		// 目標位置に近づいたか、到達したかを確認する
 		Vector3 diff = itembase.transform.position - _targetPos;
 		diff.y = 0;
 
 
 		if (diff.sqrMagnitude < 0.01f)
 		{
-			// Set a new random target position within the X-Z plane
-			// (x-z) 平面上での新しいランダムな目標位置を設定する
 			_targetPos = GetRandomPointInCircle(itembase.transform.position, RandomWanderRadius);
 			_targetPos.y = itembase.transform.position.y;
 		}
@@ -70,8 +61,6 @@ public class ItemIdleRandomWander : ItemIdleSOBase
 
 		if (itembase.IsAggroed && collisionCooldown <= 0f)
 		{
-			// Calculate the new target position based on the reversed direction
-			// 逆転した方向に基づいて新しい目標位置を計算する
 			_targetPos = itembase.transform.position - _direction * Random.Range(1f, RandomWanderRadius);
 			_targetPos.y = itembase.transform.position.y;
 
@@ -99,8 +88,6 @@ public class ItemIdleRandomWander : ItemIdleSOBase
 
 	private Vector3 GetRandomPointInCircle(Vector3 origin, float radius)
 	{
-		// Get a random point within a circle centered at 'origin' with radius 'radius'
-		// 半径「radius」で「origin」を中心にした円内のランダムな点を取得する
 		Vector2 randomOffset = Random.insideUnitCircle * radius;
 		return new Vector3(origin.x + randomOffset.x, origin.y, origin.z + randomOffset.y);
 	}

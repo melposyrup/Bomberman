@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerTemporaryFix : MonoBehaviour
+public class PlayerControllerTemporaryFix_2P : MonoBehaviour
 {
 	public Player player;
 	public PlayerController Controller;
@@ -55,28 +55,28 @@ public class PlayerControllerTemporaryFix : MonoBehaviour
 
 	void InputPlugIn()
 	{
-		if (Input.GetButtonDown("Bomb_Place")) { player.IsBombPressed = true; }
-		if(Input.GetButtonUp("Bomb_Place")) { player.IsBombPressed = false; }
+		if (Input.GetButtonDown("Bomb_Place_2P")) { player.IsBombPressed = true; }
+		if(Input.GetButtonUp("Bomb_Place_2P")) { player.IsBombPressed = false; }
 
-		if (Input.GetButtonDown("Bomb_Kick")) { player.IsKickPressed = true; }
-		if(Input.GetButtonUp("Bomb_Kick")) { player.IsKickPressed = false; }
+		if (Input.GetButtonDown("Bomb_Kick_2P")) { player.IsKickPressed = true; }
+		if(Input.GetButtonUp("Bomb_Kick_2P")) { player.IsKickPressed = false; }
 
-		if(Input.GetButtonDown("Bomb_Hold")) { player.IsHoldPressed = true; }
-		if(Input.GetButtonUp("Bomb_Hold")) { player.IsHoldPressed = false; }
+		if(Input.GetButtonDown("Bomb_Hold_2P")) { player.IsHoldPressed = true; }
+		if(Input.GetButtonUp("Bomb_Hold_2P")) { player.IsHoldPressed = false; }
 
-		if (Input.GetButtonDown("Bomb_Throw")) { player.IsThrowPressed = true; }
-		if(Input.GetButtonUp("Bomb_Throw")) { player.IsThrowPressed = false; }
+		if (Input.GetButtonDown("Bomb_Throw_2P")) { player.IsThrowPressed = true; }
+		if(Input.GetButtonUp("Bomb_Throw_2P")) { player.IsThrowPressed = false; }
 
-		if(Input.GetButtonDown("Bomb_Expand")) { player.IsExpandPressed = true; }
-		if(Input.GetButtonUp("Bomb_Expand")) { player.IsExpandPressed = false; }
+		if(Input.GetButtonDown("Bomb_Expand_2P")) { player.IsExpandPressed = true; }
+		if(Input.GetButtonUp("Bomb_Expand_2P")) { player.IsExpandPressed = false; }
 	}
 
 	// movement
 	void MovePlayer()
 	{
 		// ÉLÅ[ì¸óÕÇ©ÇÁílÇéÊìæ
-		float InputHorizontal = Input.GetAxis("Horizontal");
-		float InputVertical = Input.GetAxis("Vertical");
+		float InputHorizontal = Input.GetAxis("Horizontal_2P");
+		float InputVertical = Input.GetAxis("Vertical_2P");
 		// ì¸óÕÇ≥ÇÍÇΩï˚å¸Ç…à⁄ìÆÇ∑ÇÈ
 		// Calculate movement direction
 		Vector3 move = new Vector3(InputHorizontal, 0, -InputVertical);

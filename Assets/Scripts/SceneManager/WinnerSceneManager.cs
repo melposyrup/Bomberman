@@ -37,6 +37,8 @@ public class WinnerSceneManager : SceneManagerBase
 		// play fade out animation
 		if (FadingImage) { FadingImage.StartFadingOut(); }
 
+		// player sound
+		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.WinnerScene);
 	}
 
 	private void Update()

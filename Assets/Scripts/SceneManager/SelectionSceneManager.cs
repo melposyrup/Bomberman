@@ -22,18 +22,13 @@ public class SelectionSceneManager : SceneManagerBase
 	public int SelectNum = 0;
 	// 選択中の人
 	private int _selectPlayer = 0;
-	// 効果音
-	public AudioClip Button;
-	public AudioClip Decide;
-	AudioSource _audioSource;
-
 
 	[SerializeField] private FadingImage _fadingImage;
 
 	private void Start()
 	{
-		_audioSource = GetComponent<AudioSource>();
 		if (_fadingImage) { _fadingImage.StartFadingOut(); }
+		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.Selections);
 	}
 
 	private void Update()
@@ -50,6 +45,7 @@ public class SelectionSceneManager : SceneManagerBase
 			case 1:
 				// if all the players are selected, go to game scene
 				{
+					SoundManager.Instance.StopBGM(BGMSoundData.BGM.Selections);
 					SceneChange(SceneManagerBase.EScene.GameScene);
 				}
 				break;
@@ -67,17 +63,17 @@ public class SelectionSceneManager : SceneManagerBase
 				// プレイヤー１のキャラ選択
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
-					_audioSource.PlayOneShot(Button);
+					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum--;
 				}
 				else if (Input.GetKeyDown(InputRightArrow))
 				{
-					_audioSource.PlayOneShot(Button);
+					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum++;
 				}
 				else if (Input.GetKeyDown(InputSelect))
 				{
-					_audioSource.PlayOneShot(Decide);
+					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor1P = SelectNum;
 					// 選択場所をリセット
 					if (GlobalVariables.SelectColor1P == 0)
@@ -104,7 +100,7 @@ public class SelectionSceneManager : SceneManagerBase
 				// プレイヤー２のキャラ選択
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
-					_audioSource.PlayOneShot(Button);
+					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum--;
 					if (SelectNum == GlobalVariables.SelectColor1P) 
                     {
@@ -113,7 +109,7 @@ public class SelectionSceneManager : SceneManagerBase
 				}
 				else if (Input.GetKeyDown(InputRightArrow))
 				{
-					_audioSource.PlayOneShot(Button);
+					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum++;
 					if (SelectNum == GlobalVariables.SelectColor1P)
 					{
@@ -122,7 +118,7 @@ public class SelectionSceneManager : SceneManagerBase
 				}
 				else if (Input.GetKeyDown(InputSelect))
 				{
-					_audioSource.PlayOneShot(Decide);
+					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor2P = SelectNum;
 					// シーンを移動
 					_selectScene++;

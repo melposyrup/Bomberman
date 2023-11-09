@@ -57,6 +57,10 @@ public class ResultSceneManager : SceneManagerBase
 
 		// play fade out animation
 		if (FadingImage) { FadingImage.StartFadingOut(); }
+
+		// play sound
+		SoundManager.Instance.PlaySE(SESoundData.SE.ResultSE);
+		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.ResultScene);
 	}
 
 	private void Update()
@@ -98,6 +102,7 @@ public class ResultSceneManager : SceneManagerBase
 	}
 	private void StartNewGame()
 	{
+		SoundManager.Instance.StopBGM(BGMSoundData.BGM.ResultScene);
 		if (_hasWinner) { SceneChange(SceneManagerBase.EScene.WinnerScene); }
 		else { SceneChange(SceneManagerBase.EScene.GameScene); }
 	}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BackScreenManager : MonoBehaviour
 {
 
-    bool _screenExpansion = false;
+    //bool _screenExpansion = false;
 
     // Start is called before the first frame update
     void Start()

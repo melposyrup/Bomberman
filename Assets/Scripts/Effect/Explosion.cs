@@ -13,14 +13,14 @@ public class Explosion : MonoBehaviour
 	private Material material; 
 	private float elapsedTime = 0.0f; // ½Uß^•rég
 
-	void Start()
+	private void Start()
 	{
 		initialScale = transform.localScale; 
-		material = GetComponent<MeshRenderer>().material; 
+		material = this.GetComponentInChildren<MeshRenderer>().material; 
 		material.color = new Color(1f, 1f, 1f, 1f); 
 	}
 
-	void Update()
+	private void Update()
 	{
 		elapsedTime += Time.deltaTime;
 
@@ -40,6 +40,14 @@ public class Explosion : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+	public void SetScale(float scale)
+	{
+		initialScale = new Vector3(scale, scale, scale);
+	}
+
+
+
 
 	//private void OnTriggerEnter(Collider other)
 	//{

@@ -21,6 +21,13 @@ public class GameSettings : MonoBehaviour
 	// store the scores of the players
 	public Dictionary<int, int> PlayerScores;
 	public Dictionary<int, Color> PlayerColors;
+	public Dictionary<int, bool> PlayerNumberSetup;
+
+	// PlayerMaterials[0] white
+	// PlayerMaterials[1] black
+	// PlayerMaterials[2] blue
+	// PlayerMaterials[3] red
+	public Material[] PlayerMaterials;
 
 	public int LastWinner { get; set; }
 
@@ -31,7 +38,12 @@ public class GameSettings : MonoBehaviour
 			Instance = this;
 			PlayerScores = new Dictionary<int, int>();
 			PlayerColors = new Dictionary<int, Color>();
+			PlayerNumberSetup = new Dictionary<int, bool>();
 			DontDestroyOnLoad(gameObject);
+			
+			// test
+			InitializePlayerNumberSetup();
+			
 		}
 		else if (Instance != this)
 		{
@@ -40,13 +52,42 @@ public class GameSettings : MonoBehaviour
 	}
 
 	/// <summary>
-	/// initialize player scores and colors
+	/// initialize player scores and colors, be called when get into selectScene
 	/// </summary>
-	public void Initialize()
+	public void InitializeAll()
 	{
 		PlayerScores.Clear();
 		PlayerColors.Clear();
+		PlayerNumberSetup.Clear();
 	}
+
+	// be called before change to gameScene
+	private void InitializePlayerNumberSetup()
+    {
+		PlayerNumberSetup.Clear();
+        for (int i = 1; i <= PlayerCount; i++)
+        {
+            PlayerNumberSetup[i] = true;
+        }
+    }
+
+	// be called in PlayerController
+	public int GetAvailablePlayerNumber()
+	{
+		foreach (KeyValuePair<int, bool> playerNumber in PlayerNumberSetup)
+		{
+			if (playerNumber.Value)
+			{
+            PlayerNumberSetup[playerNumber.Key] = false;
+            return playerNumber.Key;
+			}
+		}
+
+		return 0;
+	}
+
+
+
 
 	/// <summary>
 	/// playerId from 1 to 2

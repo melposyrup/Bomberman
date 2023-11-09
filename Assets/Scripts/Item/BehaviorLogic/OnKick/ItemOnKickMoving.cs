@@ -13,36 +13,39 @@ using UnityEngine;
 public class ItemOnKickMoving : ItemOnKickSOBase
 {
 	private Vector3 _direction;
-	private float _speed = 3.0f;
-	bool _isMoving = true;
+	private float _speed = 5f;
 
-	private float collisionCooldown = 0.3f;
+	private float collisionCooldown = 0.5f;
 
-	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
-	{
-		base.DoAnimationTriggerEventLogic(triggerType);
-	}
+
 
 	public override void DoEnterLogic()
 	{
 		base.DoEnterLogic();
 		//calculate direction from player to item
-		itembase.GetComponent<Rigidbody>().isKinematic = false;
+		itembase.Rigidbody.isKinematic = false;
+		itembase.Rigidbody.useGravity = true;
+
 		if (itembase is Bomb bomb)
 		{
-			_direction = (itembase.transform.position - bomb.IsKickedBy.transform.position).normalized;
+			_direction = (itembase.transform.position 
+				- bomb.IsKickedBy.transform.position).normalized;
 			_direction.y = 0;
-			_isMoving = true;
 
-			// 爆弾のカウントダウンを減る状態に
-			bomb.IsCounting = false;
+			bomb.SetCounting(false);
 		}
 	}
 
 	public override void DoExitLogic()
 	{
 		base.DoExitLogic();
-		itembase.GetComponent<Rigidbody>().isKinematic = true;
+
+		if (itembase is Bomb bomb)
+		{
+			bomb.SetExplodeTimer(bomb.IsExplodeTimer);
+			bomb.SetCounting(true);
+		}
+
 	}
 
 	public override void DoFixedUpdateLogic()
@@ -50,12 +53,15 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 		base.DoFixedUpdateLogic();
 
 		//move item until it reaches player or air wall
-		if (_isMoving)
-		{
-			//itembase.MoveItem(_direction * _speed);
-			itembase.GetComponent<Rigidbody>().isKinematic = true;
-			itembase.MoveItemKinematic(_direction * _speed);
-		}
+		//itembase.MoveItem(_direction * _speed);
+
+		Vector3 velocityXZ = _direction * _speed;
+		// for some bugs the bome keep floating in air,
+		// temporary fix by adding a y velocity
+		float velocityY = -3f;
+
+		itembase.Rigidbody.velocity = new Vector3(velocityXZ.x, velocityY, velocityXZ.z);
+
 	}
 
 	public override void DoUpdateLogic()
@@ -67,8 +73,6 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 		{
 			if (itembase.IsAggroed)
 			{
-				_isMoving = false;
-				_direction = Vector3.zero;
 				itembase.StateMachine.ChangeState(itembase.IdleState);
 			}
 		}
@@ -76,7 +80,10 @@ public class ItemOnKickMoving : ItemOnKickSOBase
 
 
 	}
-
+	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
+	{
+		base.DoAnimationTriggerEventLogic(triggerType);
+	}
 	public override void Initialize(GameObject gameObject, ItemBase itembase)
 	{
 		base.Initialize(gameObject, itembase);

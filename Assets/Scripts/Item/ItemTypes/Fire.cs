@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Fire : ItemBase
 {
+	public override ItemType Type => ItemType.Fire;
+	
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BombUp : ItemBase
 {
+	public override ItemType Type => ItemType.BombUp;
+
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))

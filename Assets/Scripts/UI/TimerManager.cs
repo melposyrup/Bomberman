@@ -62,4 +62,8 @@ public class TimerManager : MonoBehaviour
 		return _minutes;
 	}
 
+	public float GetSeconds()
+	{
+		return _seconds;
+	}
 }

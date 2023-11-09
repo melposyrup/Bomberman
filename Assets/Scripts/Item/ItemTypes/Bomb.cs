@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBombExplodable
 {
+	public GameObject Owner;
 
 
 	#region IBombExpandable implementation
 	public Vector3 MaxScale { get; set; }
-	public float ExpandFactor { get; set; } = 0.3f;
+	public float ExpandFactor { get; set; } = 1.1f;
 	public float MaxExpandFactor { get; set; } = 2f;
 
 	public void Expand()
@@ -17,7 +18,6 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		if (transform.localScale.magnitude < MaxScale.magnitude)
 			transform.localScale *= ExpandFactor;
 	}
-
 
 	#endregion
 
@@ -37,7 +37,10 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 	{ IsOnHold = isHolding; }
 	public Transform IsHoldedBy { get; set; }
 	public void SetHoldedBy(Transform transform)
-	{ IsHoldedBy = transform; }
+	{
+		IsHoldedBy = transform;
+		Owner = IsHoldedBy.gameObject;
+	}
 
 	#endregion
 
@@ -45,15 +48,21 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 	public bool IsExplode { get; set; }
 	public void SetExplodeStatus(bool isExplode)
 	{ IsExplode = isExplode; }
-	public int IsPlacedBy { get; set; }
-	public void SetPlacedBy(int player)
-	{ IsPlacedBy = player; }
-	public float IsExplodeTimer { get; set; }
+
+	public Transform IsPlacedBy { get; set; }
+	public void SetPlacedBy(Transform player)
+	{
+		IsPlacedBy = player;
+		Owner = IsPlacedBy.gameObject;
+	}
+	public float IsExplodeTimer { get; set; } = 3.0f;
 	public void SetExplodeTimer(float explodeTimer)
 	{ IsExplodeTimer = explodeTimer; }
-	public bool IsCounting { get; set; }
+	public bool IsCounting { get; set; } = false;
 	public void SetCounting(bool isCounting)
-	{ IsCounting = isCounting; }
+	{
+		IsCounting = isCounting; //Debug.Log("IsCounting : " + IsCounting);
+	}
 
 	#endregion
 
@@ -74,6 +83,8 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 	[Header("AnimationEffects")]
 	public GameObject Explosion;
 
+	public SphereCollider SphereCollider;
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -83,9 +94,7 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		OnKickState = new ItemOnKickState(this, base.StateMachine);
 		OnHandState = new ItemOnHandState(this, base.StateMachine);
 
-		// 爆弾のカウントダウン設定
-		IsExplodeTimer = 3.0f;
-		IsCounting = true;
+		SphereCollider = GetComponent<SphereCollider>();
 	}
 
 	protected override void Start()
@@ -101,25 +110,75 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		// ScriptableObject Variables
 		ItemOnKickBaseInstance.Initialize(gameObject, this);
 		ItemOnHandBaseInstance.Initialize(gameObject, this);
+
+		// Create and initialize BombMaterialInstance
+
+		CreateBombMaterialInstance();
+
 	}
 
 	protected override void Update()
 	{
 		base.Update();
 
-		// 爆弾関連
+		CountdownToExplosion();
+	}
+
+	#region EmissionEffect
+	public Material BombMaterialInstance;
+	public Color EmissionColor1;
+	public Color EmissionColor2;
+
+	private void CreateBombMaterialInstance()
+	{
+		Renderer renderer = GetComponentInChildren<MeshRenderer>();
+		BombMaterialInstance = new Material(renderer.material);
+		renderer.material = BombMaterialInstance;
+		BombMaterialInstance.EnableKeyword("_EMISSION");
+		BombMaterialInstance.color = Color.black;
+	}
+
+	private void CountdownToExplosion()
+	{
+
 		if (IsCounting)
 		{
 			IsExplodeTimer -= Time.deltaTime;
-		}
-		if (IsExplodeTimer < 0)
-		{
 
-			IsPlacedBy--;
-			Death();
+			if (IsExplodeTimer < 2f)
+			{
+				PingPongEmissionColor();
+			}
+			if (IsExplodeTimer < 0 )
+			{
+				if (Owner.TryGetComponent(out Player player))
+				{
+					player.BombCountRecover();
+				}
+
+				Death();
+			}
+		}
+		else
+		{
+			BombMaterialInstance.SetColor("_EmissionColor", Color.black);
+			IsExplodeTimer = 3.0f;
 		}
 
 	}
+
+	void PingPongEmissionColor()
+	{
+		float pingPongDuration = 0.4f;
+		float lerp = Mathf.PingPong(Time.time, pingPongDuration) / pingPongDuration;
+
+		Color emissionColor = Color.Lerp(EmissionColor1, EmissionColor2, lerp);
+
+		BombMaterialInstance.SetColor("_EmissionColor", emissionColor);
+	}
+
+	#endregion
+
 
 	protected override void FixedUpdate()
 	{
@@ -128,22 +187,14 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		//Debug.Log("bomb state:  " + base.StateMachine.CurrentItemState);
 	}
 
-
-	//when player get out of the trigger,set trigger to false
-	private void OnTriggerExit(Collider other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-		{
-			gameObject.layer = LayerMask.NameToLayer("Bomb");
-		}
-	}
-
 	private void Death()
 	{
 		//playerObject.func();
 		if (Explosion)
 		{
-			Instantiate(Explosion, transform.position, Quaternion.identity);
+			GameObject explosion =
+				Instantiate(Explosion, transform.position, Quaternion.identity);
+			explosion.GetComponent<Explosion>().SetScale(transform.localScale.x);
 		}
 		else { Debug.Log("Explosion Prefab undefined"); }
 

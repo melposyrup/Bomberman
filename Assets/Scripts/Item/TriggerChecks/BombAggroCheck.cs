@@ -24,11 +24,27 @@ public class BombAggroCheck : MonoBehaviour
 
 	private void OnTriggerExit(Collider collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Player")
-			|| collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
-			|| collision.gameObject.layer == LayerMask.NameToLayer("Bomb"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{
 			_itembase.SetAggroStatus(false);
 		}
+
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			_itembase.SetAggroStatus(false);
+
+			if (_itembase is Bomb bomb)
+			{
+				if (bomb.StateMachine.CurrentItemState is not ItemOnHandState
+					|| bomb.StateMachine.CurrentItemState is not ItemOnThrowState)
+				{
+					_itembase.gameObject.layer = LayerMask.NameToLayer("Bomb");
+				}
+
+			}
+
+
+		}
+
 	}
 }

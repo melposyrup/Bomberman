@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4680032246364909446}
   - component: {fileID: 4680032246364909447}
   - component: {fileID: 4680032246364909440}
-  - component: {fileID: 8040958714455205415}
+  - component: {fileID: 2921781028139237910}
   m_Layer: 8
   m_Name: Devil
   m_TagString: Devil
@@ -116,7 +116,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8040958714455205415
+--- !u!114 &2921781028139237910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4680032246364909442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2876648330bee9d48b138debfb2723d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 77caaa763dbfa3e4490cd7731340cf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAggroed: 0

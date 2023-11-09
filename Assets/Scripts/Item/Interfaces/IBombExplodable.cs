@@ -7,8 +7,8 @@ public interface IBombExplodable
     bool IsExplode { get; set; }
     void SetExplodeStatus(bool isExplode);
 
-    int IsPlacedBy { get; set; }
-    void SetPlacedBy(int player);
+	Transform IsPlacedBy { get; set; }
+    void SetPlacedBy(Transform player);
 
     float IsExplodeTimer { get; set; }
     void SetExplodeTimer(float explodeTimer);

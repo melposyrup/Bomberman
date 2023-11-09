@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Devil : ItemBase
 {
+	public override ItemType Type => ItemType.Devil;
+
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))

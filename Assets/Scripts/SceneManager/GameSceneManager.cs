@@ -21,10 +21,10 @@ public class GameSceneManager : SceneManagerBase
 	public SceneStateMachine sceneStateMachine;
 
 	// game scene states
-	public GameEnterState EnterState { get; set; }
-	public GameStartState StartState { get; set; }
-	public GameHurryState HurryState { get; set; }
-	public GameEndState EndState { get; set; }
+	public GameEnterState EnterState;
+	public GameStartState StartState;
+	public GameHurryState HurryState;
+	public GameEndState EndState;
 
 	#endregion
 
@@ -67,7 +67,16 @@ public class GameSceneManager : SceneManagerBase
 
 	#endregion
 
-	protected virtual void Awake()
+	#region Time up
+	private bool TimeUp()
+	{
+		bool mintueIsZero = Timer.GetMinutes() == 0;
+		bool secondIsZero = Timer.GetSeconds() == 0;
+		return mintueIsZero && secondIsZero;
+	}
+	#endregion
+
+	private  void Awake()
 	{
 		EventManager = this.GetComponent<GameEventManager>();
 
@@ -80,7 +89,7 @@ public class GameSceneManager : SceneManagerBase
 		playerLife = new Dictionary<int, bool>();
 
 	}
-	protected virtual void Start()
+	private  void Start()
 	{
 		sceneStateMachine.Initialize(EnterState);
 
@@ -95,14 +104,20 @@ public class GameSceneManager : SceneManagerBase
 		}
 	}
 
-	protected virtual void Update()
+	private void Update()
 	{
 		sceneStateMachine.CurrentState.UpdateState();
+
+		if (TimeUp())
+		{
+			Timer.StopTimer();
+			sceneStateMachine.ChangeState(EndState);
+		}
+
 
 		//test
 		if (Input.GetKeyDown(KeyCode.I))
 		{
-			sceneStateMachine.ChangeState(HurryState);
 
 		}
 	}
@@ -130,7 +145,7 @@ public class GameEnterState : SceneState
 		//Debug.Log("GameEnterState");
 		// 1. fading in
 		// 2. READY GO §Œ•·•√•ª©`•∏§Ú±Ì æ
-		// 3. players uncontrollable
+		// 3. players uncontrollable  gameSceneManager.AllPlayerInputEnable(false);
 		gameSceneManager.EventManager.EnterGameScene.Invoke();
 	}
 	public override void UpdateState()
@@ -160,7 +175,7 @@ public class GameStartState : SceneState
 	public override void EnterState()
 	{
 		//Debug.Log("GameStartState");
-		// 1. players controllable
+		// 1. players controllable gameSceneManager.AllPlayerInputEnable(true);
 		// 2. Start Timer 
 		gameSceneManager.EventManager.StartGameScene.Invoke();
 
@@ -221,7 +236,7 @@ public class GameEndState : SceneState
 	{
 		//Debug.Log("GameEndState");
 		// 1. stop timer
-		// 2. players uncontrollable
+		// 2. players uncontrollable gameSceneManager.AllPlayerInputEnable(false);
 		gameSceneManager.EventManager.EndGameScene.Invoke();
 
 	}

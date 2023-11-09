@@ -8,6 +8,8 @@ public class WinnerSceneManager : SceneManagerBase
 {
 	public KeyCode InputBackToSelection = KeyCode.A;
 
+	public Animator PlayerModelAnimator;
+
 	// setup prefabs in inspector
 	public FadingImage FadingImage;
 	public Transform BannerTransform;
@@ -18,8 +20,8 @@ public class WinnerSceneManager : SceneManagerBase
 	private float _countdown = 2;
 
 	// for banner moving
-	private Vector3 bannerStartPos = new Vector3(0, -0.4f, -3.6f);
-	private Vector3 bannerTargetPos = new Vector3(0, -2.5f, 1.5f);
+	[SerializeField] private Vector3 bannerStartPos = new Vector3(0, -0.4f, -3.6f);
+	[SerializeField] private Vector3 bannerTargetPos = new Vector3(0, -2.7f, 1.5f);
 	private float duration = 5f;
 
 	// for background rotating
@@ -34,6 +36,7 @@ public class WinnerSceneManager : SceneManagerBase
 
 		// play fade out animation
 		if (FadingImage) { FadingImage.StartFadingOut(); }
+
 	}
 
 	private void Update()
@@ -41,6 +44,10 @@ public class WinnerSceneManager : SceneManagerBase
 		PressKeyForSceneChange();
 	}
 
+	private void PlayerAnimation()
+	{
+		PlayerModelAnimator.SetTrigger("Win");
+	}
 
 	/// <summary>
 	/// scene change with fadingIn animation
@@ -80,6 +87,8 @@ public class WinnerSceneManager : SceneManagerBase
 			yield return null;
 		}
 		BannerTransform.position = bannerTargetPos;
+
+		PlayerAnimation();
 	}
 
 	/// <summary>

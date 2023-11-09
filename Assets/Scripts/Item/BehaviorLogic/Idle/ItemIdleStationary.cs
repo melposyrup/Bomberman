@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemIdleStationary", menuName = "ItemLogic/IdleLogic/ItemIdleStationary")]
 public class ItemIdleStationary : ItemIdleSOBase
 {
+	Vector3 keepStable; 
+
 	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
 	{
 		base.DoAnimationTriggerEventLogic(triggerType);
@@ -13,13 +15,17 @@ public class ItemIdleStationary : ItemIdleSOBase
 	public override void DoEnterLogic()
 	{
 		base.DoEnterLogic();
-		itembase.GetComponent<Rigidbody>().isKinematic = true;
+		itembase.GetComponent<Rigidbody>().isKinematic = false;
+		keepStable= itembase.transform.position;
+		if(itembase is Bomb bomb)
+		{
+			bomb.SetCounting(true);
+		}
 	}
 
 	public override void DoExitLogic()
 	{
 		base.DoExitLogic();
-		itembase.GetComponent<Rigidbody>().isKinematic = false;
 	}
 
 	public override void DoFixedUpdateLogic()
@@ -37,19 +43,23 @@ public class ItemIdleStationary : ItemIdleSOBase
 			//OnHoldState
 			if (bomb.IsOnHold)
 			{
+				bomb.SetCounting(false);
+				bomb.SetOnHoldStatus(false);//back to false
 				bomb.StateMachine.ChangeState(bomb.OnHandState);
-				bomb.SetOnHoldStatus(false);
 				return;
 			}
 
 			//OnKickState
 			if (bomb.IsKick)
 			{
+				bomb.SetKickStatus(false);//back to false
 				bomb.StateMachine.ChangeState(bomb.OnKickState);
-				bomb.SetKickStatus(false);
 				return;
 			}
 		}
+		
+		itembase.transform.position = 
+			new Vector3(keepStable.x, itembase.transform.position.y, keepStable.z);
 
 	}
 

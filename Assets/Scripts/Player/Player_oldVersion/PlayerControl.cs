@@ -146,7 +146,7 @@ public class PlayerControl : MonoBehaviour, ITriggerCheckable
 			// 自分が設置しているボムのカウントを増やす
 			++_bombPlaceNum;
 			// 誰が生成したかの情報を渡す
-			bomb.GetComponent<Bomb>().SetPlacedBy(_bombPlaceNum);
+			bomb.GetComponent<Bomb>().SetPlacedBy(this.transform);
 		}
 
 		//kick bomb E

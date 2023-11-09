@@ -20,4 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinnerScene.unity
     guid: 87cf1759ac9b68d4185b4b6a24adb74c
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 47455441e6e367f4485ac2ffd6e47d67, type: 2}

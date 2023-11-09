@@ -17,6 +17,7 @@ public class ItemStateMachine
 		CurrentItemState.ExitState();
 		CurrentItemState = newState;
 		CurrentItemState.EnterState();
+		Debug.Log("Item State Changed to " + newState);
 	}
 
 }

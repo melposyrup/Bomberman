@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemOnHandMoveWithPlayer", menuName = "ItemLogic/OnHandLogic/ItemOnHandMoveWithPlayer")]
 
 public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 {
-	public float HoldDistance = 0.5f;
+	Bomb bomb => itembase as Bomb;
+
 	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
 	{
 		base.DoAnimationTriggerEventLogic(triggerType);
@@ -15,7 +17,13 @@ public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 	public override void DoEnterLogic()
 	{
 		base.DoEnterLogic();
+
 		itembase.Rigidbody.isKinematic = false;
+		if (bomb)
+		{
+			bomb.gameObject.layer = LayerMask.NameToLayer("InitialBomb");
+			bomb.IsCounting = false;
+		}
 	}
 
 	public override void DoExitLogic()
@@ -32,13 +40,24 @@ public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 	{
 		base.DoUpdateLogic();
 
-		if (itembase is Bomb bomb)
+		if (bomb)
 		{
 			//go with player
-			Vector3 pos = bomb.IsHoldedBy.position 
-				+ bomb.IsHoldedBy.forward * HoldDistance 
-				+ Vector3.up * HoldDistance;
-			itembase.transform.position = pos;
+			Vector3 posXZ = bomb.IsHoldedBy.position
+				+ bomb.IsHoldedBy.forward.normalized
+				* bomb.transform.localScale.magnitude
+				* bomb.GetComponent<SphereCollider>().radius;
+
+			float posY = bomb.IsHoldedBy.position.y;
+
+			if (bomb.IsHoldedBy.gameObject.TryGetComponent<BoxCollider>(out BoxCollider box))
+			{ posY += box.center.y; }
+
+			posY += bomb.transform.localScale.magnitude
+				* bomb.GetComponent<SphereCollider>().radius;
+
+			itembase.transform.position =
+				new Vector3(posXZ.x, posY, posXZ.z);
 		}
 
 		if (itembase.IsThrow)

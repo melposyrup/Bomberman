@@ -17,36 +17,6 @@ public class PlayerControllerTemporaryFix : MonoBehaviour
 		this.enabled = SwitchToPlugIn;
 	}
 
-	public int _bombPlaceNum;
-
-	// !プレイヤーのバフ、デバフ
-	// 爆弾所持数
-	[SerializeField] int _bombMaxNum = 2;
-	public void IncreaseBombMaxNum() { _bombMaxNum++; }
-
-	// 火力
-	[SerializeField] int _firePowerNum = 0;
-	public void IncreaseFirePowerNum() { _firePowerNum++; }
-
-	// パワーボムか red bomb
-	[SerializeField] private bool _powerBomb = false;
-	public void SetPowerBomb(bool powerbomb) { _powerBomb = powerbomb; }
-
-	[Header("Player Action")]
-	//hold
-	[SerializeField] private bool _isOnHold = false;
-	private GameObject _bombOnHold = null;
-
-	//kick
-	private Bomb BombOnFoot { get; set; } = null;
-	public void SetBombOnFoot(Bomb bomb)
-	{
-		BombOnFoot = bomb;
-		Debug.Log("BombOnFoot is set to " + BombOnFoot);
-	}
-
-
-
 	private void Update()
 	{
 		InputPlugIn();

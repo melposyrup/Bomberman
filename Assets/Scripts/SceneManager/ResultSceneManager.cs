@@ -74,15 +74,7 @@ public class ResultSceneManager : SceneManagerBase
 	/// </summary>
 	private void CheckWinner()
 	{
-		// get score date from GameSettings
-		foreach (var pair in GameSettings.Instance.PlayerScores)
-		{
-			if (pair.Value >= 3)
-			{
-				_hasWinner = true;
-				break;
-			}
-		}
+
 	}
 
 	/// <summary>
@@ -132,13 +124,11 @@ public class ResultSceneManager : SceneManagerBase
 
 			// set player model color
 			//TODO: set player model color by SetPlayerColor() in PlayerController.cs
-			Color newPlayerColor = GameSettings.Instance.GetColor(i + 1);
 
 			MeshRenderer meshRenderer = newPlayerModel.GetComponent<MeshRenderer>();
 			if (meshRenderer != null)
 			{
 				Material newMat = new Material(meshRenderer.material);
-				newMat.color = newPlayerColor;
 				meshRenderer.material = newMat;
 			}
 

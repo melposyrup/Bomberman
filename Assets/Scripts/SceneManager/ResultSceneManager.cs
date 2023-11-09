@@ -38,6 +38,8 @@ public class ResultSceneManager : SceneManagerBase
 	[SerializeField] private Vector3 scoreStartPosition = new Vector3(0, 0, -6);
 	[SerializeField] private Vector3 scoreTargetPosition = Vector3.zero;
 
+	private GameObject winner;
+
 	private void Start()
 	{
 		// check if there is a winner
@@ -74,7 +76,15 @@ public class ResultSceneManager : SceneManagerBase
 	/// </summary>
 	private void CheckWinner()
 	{
-
+		// get score date from GameSettings
+		foreach (var pair in GameSettings.Instance.PlayerInfoDictionary)
+		{
+			if (pair.Value.Score >= 3)
+			{
+				_hasWinner = true;
+				break;
+			}
+		}
 	}
 
 	/// <summary>
@@ -123,13 +133,13 @@ public class ResultSceneManager : SceneManagerBase
 			playerTransforms[i].position = new Vector3(_startX, posY, _fixedZ);
 
 			// set player model color
-			//TODO: set player model color by SetPlayerColor() in PlayerController.cs
+			Material material = GameSettings.Instance.GetMaterial(i + 1);
 
-			MeshRenderer meshRenderer = newPlayerModel.GetComponent<MeshRenderer>();
+			SkinnedMeshRenderer meshRenderer = 
+				newPlayerModel.GetComponentInChildren<SkinnedMeshRenderer>();
 			if (meshRenderer != null)
 			{
-				Material newMat = new Material(meshRenderer.material);
-				meshRenderer.material = newMat;
+				meshRenderer.material = material;
 			}
 
 			// process player scores
@@ -143,6 +153,8 @@ public class ResultSceneManager : SceneManagerBase
 				scoreTargetPosition = playerTransforms[i].position
 					+ new Vector3(_distanceX * score, 0, 0);
 				score -= 1;
+
+				winner = playerTransforms[i].gameObject;
 			}
 
 			for (int j = 0; j < score; j++)
@@ -184,7 +196,8 @@ public class ResultSceneManager : SceneManagerBase
 		}
 		scoreTransfrom.position = scoreTargetPosition;
 
-		//TODO: play WinAnimation of player
+		// play WinAnimation of player
+		winner.GetComponentInChildren<Animator>().SetTrigger("Win");
 	}
 
 

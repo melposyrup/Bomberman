@@ -10,7 +10,7 @@ public class BlockSpawner : MonoBehaviour
 
 	public float xRange = 10.0f;
 	public float zRange = 10.0f;
-	public float height = 50.0f;
+	public float height = 30.0f;
 
 	public void StartSpawn()
 	{
@@ -26,7 +26,7 @@ public class BlockSpawner : MonoBehaviour
 			// Wait for 3 seconds
 			yield return new WaitForSeconds(3f);
 
-			Debug.Log("SpawnBlocks");
+			//Debug.Log("SpawnBlocks");
 
 			// Generate a random position
 			Vector3 spawnPosition = new Vector3(

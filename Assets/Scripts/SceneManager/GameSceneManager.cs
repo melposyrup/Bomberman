@@ -112,6 +112,7 @@ public class GameSceneManager : SceneManagerBase
 		{
 			Timer.StopTimer();
 			sceneStateMachine.ChangeState(EndState);
+			SoundManager.Instance.PlaySE(SESoundData.SE.GameOver);
 		}
 
 

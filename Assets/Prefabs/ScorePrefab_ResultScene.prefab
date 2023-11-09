@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6922841454813480194}
   - component: {fileID: 9047709896477023430}
   m_Layer: 0
-  m_Name: FakeScorePrefab_ResultScene
+  m_Name: ScorePrefab_ResultScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,3 +96,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01dd2af329180a546baeaa31b8245c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationAmount: 0

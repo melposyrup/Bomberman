@@ -185,7 +185,7 @@ public class PlayerDeadState : PlayerState
 	{
 		if (countdown < 0f)
 		{
-			player.GameEventManager.OnPlayerDeath.Invoke(player.Controller.PlayerNumber);
+			player.GameEventManager.OnPlayerDeath.Invoke(player.PlayerNumber);
 			player.gameObject.SetActive(false);
 		}
 		else { countdown -= Time.deltaTime; }

@@ -45,9 +45,9 @@ public class GameSettings : MonoBehaviour
 			PlayerInfoDictionary = new Dictionary<int, PlayerInfo>();
 
 			DontDestroyOnLoad(gameObject);
-			
+
 			// test
-			InitializePlayerNumberSetup();
+			InitializeAll();
 			
 		}
 		else if (Instance != this)
@@ -59,24 +59,19 @@ public class GameSettings : MonoBehaviour
 	/// <summary>
 	/// initialize player scores and colors, be called when get into selectScene
 	/// </summary>
-	public void InitializeAll()
-	{
-		PlayerInfoDictionary.Clear();
-
-
-	}
 
 	// be called before change to gameScene
-	private void InitializePlayerNumberSetup()
-    {
+	public void InitializeAll()
+	{	
 		PlayerInfoDictionary.Clear();
 		for (int i = 1; i <= PlayerCount; i++)
 		{
-			Material material = PlayerMaterials[GlobalVariables.SelectColor1P];
-			PlayerInfo playerInfo = new PlayerInfo(true, 0, material); 
+			PlayerInfo playerInfo = new PlayerInfo(true, 0, PlayerMaterials[0]);
 			PlayerInfoDictionary[i] = playerInfo;
 		}
+
 	}
+
 
 	// be called in PlayerController
 	public int GetAvailablePlayerNumber()
@@ -113,6 +108,7 @@ public class GameSettings : MonoBehaviour
 		{
 			PlayerInfo info = PlayerInfoDictionary[playerId];
 			info.Score += score;
+			PlayerInfoDictionary[playerId] = info;
 
 			Debug.Log($"Find player: {playerId} , Score: {info.Score}");
 		}
@@ -146,6 +142,35 @@ public class GameSettings : MonoBehaviour
 		}
 
 		return PlayerMaterials[0];
+	}
+
+	public void SetMaterial(int playerNumber,int material)
+	{
+		if(material >= 0 && material < PlayerMaterials.Length)
+		{
+			PlayerInfo info = PlayerInfoDictionary[playerNumber];
+			info.PlayerMaterial = PlayerMaterials[material];
+			PlayerInfoDictionary[playerNumber] = info;
+		}
+		else
+		{
+			Debug.LogError("Invalid player number.");
+		}
+	}
+
+	public int GetWinner()
+	{
+		int winner = 0;
+		int maxScore = 2;
+		foreach (KeyValuePair<int, PlayerInfo> playerInfoEntry in PlayerInfoDictionary)
+		{
+			if (playerInfoEntry.Value.Score > maxScore)
+			{
+				winner = playerInfoEntry.Key;
+			}
+		}
+
+		return winner;
 	}
 }
 

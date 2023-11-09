@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ƒvƒŒƒCƒ„[ƒJƒ‰[
+// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ãƒ©ãƒ¼
 public static class GlobalVariables
 {
-	// ƒvƒŒƒCƒ„[ƒJƒ‰[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ãƒ©ãƒ¼
 	public static int SelectColor1P = 0;
 	public static int SelectColor2P = 0;
 }
@@ -16,11 +16,11 @@ public class SelectionSceneManager : SceneManagerBase
 	public KeyCode InputRightArrow = KeyCode.RightArrow;
 	public KeyCode InputSelect = KeyCode.Return;
 	
-	// Œ»İ‚Ì‘I‘ğ‰æ–Ê
+	// ç¾åœ¨ã®é¸æŠç”»é¢
 	private int _selectScene = 0;
-	// Œ»İ‘I‚ñ‚Å‚¢‚éêŠ
+	// ç¾åœ¨é¸ã‚“ã§ã„ã‚‹å ´æ‰€
 	public int SelectNum = 0;
-	// ‘I‘ğ’†‚Ìl
+	// é¸æŠä¸­ã®äºº
 	private int _selectPlayer = 0;
 
 	[SerializeField] private FadingImage _fadingImage;
@@ -36,15 +36,18 @@ public class SelectionSceneManager : SceneManagerBase
 		switch (_selectScene)
 		{
 			//player model selection
-			// ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ğ‘I‘ğ
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã‚’é¸æŠ
 			case 0:
 				SelectPlayerModel();
 				break;
 			// change scene
-			// ƒoƒgƒ‹ƒV[ƒ“‚É•ÏX
+			// ãƒãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã«å¤‰æ›´
 			case 1:
 				// if all the players are selected, go to game scene
 				{
+					GameSettings.Instance.InitializeAll();
+					GameSettings.Instance.SetMaterial(1, GlobalVariables.SelectColor1P);
+					GameSettings.Instance.SetMaterial(2, GlobalVariables.SelectColor2P);
 					SoundManager.Instance.StopBGM(BGMSoundData.BGM.Selections);
 					SceneChange(SceneManagerBase.EScene.GameScene);
 				}
@@ -60,7 +63,7 @@ public class SelectionSceneManager : SceneManagerBase
 			//player model selection
 			// 1P
 			case 0:
-				// ƒvƒŒƒCƒ„[‚P‚ÌƒLƒƒƒ‰‘I‘ğ
+				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‘ã®ã‚­ãƒ£ãƒ©é¸æŠ
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
@@ -75,7 +78,7 @@ public class SelectionSceneManager : SceneManagerBase
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor1P = SelectNum;
-					// ‘I‘ğêŠ‚ğƒŠƒZƒbƒg
+					// é¸æŠå ´æ‰€ã‚’ãƒªã‚»ãƒƒãƒˆ
 					if (GlobalVariables.SelectColor1P == 0)
 					{
 						SelectNum = 1;
@@ -97,7 +100,7 @@ public class SelectionSceneManager : SceneManagerBase
 				break;
 			// 2P
 			case 1:
-				// ƒvƒŒƒCƒ„[‚Q‚ÌƒLƒƒƒ‰‘I‘ğ
+				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼’ã®ã‚­ãƒ£ãƒ©é¸æŠ
 				if (Input.GetKeyDown(InputLeftArrow))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
@@ -120,7 +123,7 @@ public class SelectionSceneManager : SceneManagerBase
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor2P = SelectNum;
-					// ƒV[ƒ“‚ğˆÚ“®
+					// ã‚·ãƒ¼ãƒ³ã‚’ç§»å‹•
 					_selectScene++;
 				}
 				else if (SelectNum < 0)

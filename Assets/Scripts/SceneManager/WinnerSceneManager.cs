@@ -32,7 +32,9 @@ public class WinnerSceneManager : SceneManagerBase
 		StartCoroutine(MovingBanner());
 		RotatingBackImage();
 
-		//TODO: player model animation
+		// setup player model
+		PlayerModelAnimator.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material
+			= GameSettings.Instance.GetMaterial(GameSettings.Instance.GetWinner());
 
 		// play fade out animation
 		if (FadingImage) { FadingImage.StartFadingOut(); }

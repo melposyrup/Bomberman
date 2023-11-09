@@ -21,10 +21,13 @@ public class ScoreManager : MonoBehaviour
 
 	public void AddPlayerScore(int playerNum)
 	{
-		//Debug.Log("playerNum:" + playerNum);
+		
 		if (playerNum > 0 && playerNum < (PlayerScore.Length + 1))
 		{
 			GameSettings.Instance.AddScore(playerNum);
+
+			int numGet = GameSettings.Instance.GetScore(playerNum);
+			Debug.Log("!!!!playerNum:" + numGet);
 
 			PlayerScore[playerNum - 1].text =
 				GameSettings.Instance.GetScore(playerNum).ToString();

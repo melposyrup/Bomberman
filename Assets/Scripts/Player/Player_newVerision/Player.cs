@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 	public int BombCountMax = 3;
 	public float Force = 10f;
 
+	public int PlayerNumber;
+
 	#region Speed
 	public void SetSpeedHold()
 	{
@@ -54,7 +56,6 @@ public class Player : MonoBehaviour
 	[Header("Setup manually")]
 	public PlayerAttribute Attribute;
 	public Animator Animator;
-	public PlayerController Controller;
 	public GameEventManager GameEventManager;
 	public GameObject BombPrefab;
 
@@ -155,7 +156,6 @@ public class Player : MonoBehaviour
 
 	private void PlayerInitialize()
 	{
-		// setup color from GameSettings
 
 
 	}

@@ -10,6 +10,8 @@ public class TitleSceneManager : SceneManagerBase
 
 	private void Start()
 	{
+		Screen.SetResolution(1920, 1080, false);
+
 		if (_fadingImage) { _fadingImage.StartFadingOut(); }
 		StartCoroutine(ChangeColorCoroutine());
 	}

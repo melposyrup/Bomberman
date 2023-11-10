@@ -93,7 +93,6 @@ public class GameSceneManager : SceneManagerBase
 	{
 		sceneStateMachine.Initialize(EnterState);
 		SoundManager.Instance.PlaySE(SESoundData.SE.ReadyGo);
-		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.PlayScene);
 		Timer = GameObject.Find("Timer").GetComponent<TimerManager>();
 		if (!Timer) { Debug.Log("TimerPrefab is Undefined"); }
 
@@ -103,6 +102,7 @@ public class GameSceneManager : SceneManagerBase
 		{
 			playerLife[playerId] = true;
 		}
+
 	}
 
 	private void Update()
@@ -114,7 +114,6 @@ public class GameSceneManager : SceneManagerBase
 			Timer.StopTimer();
 			sceneStateMachine.ChangeState(EndState);
 			SoundManager.Instance.PlaySE(SESoundData.SE.GameOver);
-			SoundManager.Instance.StopBGM(BGMSoundData.BGM.PlayScene);
 		}
 
 
@@ -260,7 +259,6 @@ public class GameEndState : SceneState
 		}
 		else
 		{
-			SoundManager.Instance.StopBGM(BGMSoundData.BGM.PlayScene);
 			gameSceneManager.SceneChange(SceneManagerBase.EScene.ResultScene);
 		}
 

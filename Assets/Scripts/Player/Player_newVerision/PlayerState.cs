@@ -184,7 +184,6 @@ public class PlayerDeadState : PlayerState
     public override void EnterState()
     {
         SoundManager.Instance.PlaySE(SESoundData.SE.PlayerDie);
-        SoundManager.Instance.StopBGM(BGMSoundData.BGM.PlayScene);
 
         player.Animator.SetTrigger("Dead");
 

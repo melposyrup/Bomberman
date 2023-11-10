@@ -15,7 +15,6 @@ public class Explosion : MonoBehaviour
 
 	private void Start()
 	{
-		SoundManager.Instance.PlaySE(SESoundData.SE.Explosion);
 		initialScale = transform.localScale; 
 		material = this.GetComponentInChildren<MeshRenderer>().material; 
 		material.color = new Color(1f, 1f, 1f, 1f); 

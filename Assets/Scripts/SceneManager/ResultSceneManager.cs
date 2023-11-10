@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// <para>Setup following prefabs in inspector:</para>
@@ -13,6 +14,7 @@ using UnityEngine;
 public class ResultSceneManager : SceneManagerBase
 {
 	private bool _hasWinner = false;
+	[SerializeField] private Text _startText;
 
 	// cooldown for input key
 	private float _countdown = 2;
@@ -61,6 +63,8 @@ public class ResultSceneManager : SceneManagerBase
 		// play sound
 		SoundManager.Instance.PlaySE(SESoundData.SE.ResultSE);
 		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.ResultScene);
+
+		StartCoroutine(ChangeColorCoroutine());
 	}
 
 	private void Update()
@@ -199,6 +203,32 @@ public class ResultSceneManager : SceneManagerBase
 	}
 
 
+	/// <summary>
+	/// for _startText color change
+	/// </summary>
+	/// <returns></returns>
+	IEnumerator ChangeColorCoroutine()
+	{
+		Color yellowColor = Color.yellow;
+		Color orangeColor = new Color(1f, 0.5f, 0f);
+		float duration = 2f;
 
+		while (true)
+		{
+			yield return LerpColor(yellowColor, orangeColor, duration);
+			yield return LerpColor(orangeColor, yellowColor, duration);
+		}
+	}
+	IEnumerator LerpColor(Color fromColor, Color toColor, float duration)
+	{
+		float time = 0;
+		while (time < duration)
+		{
+			_startText.color = Color.Lerp(fromColor, toColor, time / duration);
+			time += Time.deltaTime;
+			yield return null;
+		}
+		_startText.color = toColor;
+	}
 
 }

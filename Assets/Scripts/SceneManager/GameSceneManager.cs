@@ -102,6 +102,7 @@ public class GameSceneManager : SceneManagerBase
 		{
 			playerLife[playerId] = true;
 		}
+
 	}
 
 	private void Update()

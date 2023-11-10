@@ -1859,7 +1859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &653777128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3238,6 +3238,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7307176830934512265}
     m_Modifications:
+    - target: {fileID: 2198241444010037200, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635613961508, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4823655
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635613961508, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Size.y
+      value: 5.676074
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635613961508, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Center.y
+      value: -3.197568
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635613961508, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Center.z
+      value: -7.672202e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635677538215, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Size.x
+      value: 0.32935134
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635677538215, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Center.x
+      value: -0.18231009
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650635677538215, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_Center.z
+      value: -2.5075023e-16
+      objectReference: {fileID: 0}
     - target: {fileID: 6082650635943061942, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3285,6 +3317,10 @@ PrefabInstance:
     - target: {fileID: 6082650635943061943, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
       propertyPath: m_Name
       value: STAGE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082650636296800339, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.88
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba0f5231e9fbb174f9b41f4efe332e41, type: 3}
@@ -3745,7 +3781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1465947696}
   - component: {fileID: 1465947695}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BLOCK_SPAWNER
   m_TagString: Untagged
   m_Icon: {fileID: 0}

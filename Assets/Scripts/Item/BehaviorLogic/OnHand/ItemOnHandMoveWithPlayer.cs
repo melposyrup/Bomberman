@@ -7,74 +7,75 @@ using UnityEngine;
 
 public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
 {
-	Bomb bomb => itembase as Bomb;
+    Bomb bomb => itembase as Bomb;
 
-	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
-	{
-		base.DoAnimationTriggerEventLogic(triggerType);
-	}
+    public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
+    {
+        base.DoAnimationTriggerEventLogic(triggerType);
+    }
 
-	public override void DoEnterLogic()
-	{
-		base.DoEnterLogic();
+    public override void DoEnterLogic()
+    {
+        base.DoEnterLogic();
 
-		itembase.Rigidbody.isKinematic = false;
-		if (bomb)
-		{
-			bomb.gameObject.layer = LayerMask.NameToLayer("InitialBomb");
-			bomb.IsCounting = false;
-		}
-	}
+        itembase.Rigidbody.isKinematic = false;
+        if (bomb)
+        {
+            bomb.gameObject.layer = LayerMask.NameToLayer("InitialBomb");
+            bomb.IsCounting = false;
+        }
+    }
 
-	public override void DoExitLogic()
-	{
-		base.DoExitLogic();
-	}
+    public override void DoExitLogic()
+    {
+        base.DoExitLogic();
+    }
 
-	public override void DoFixedUpdateLogic()
-	{
-		base.DoFixedUpdateLogic();
-	}
+    public override void DoFixedUpdateLogic()
+    {
+        base.DoFixedUpdateLogic();
+    }
 
-	public override void DoUpdateLogic()
-	{
-		base.DoUpdateLogic();
+    public override void DoUpdateLogic()
+    {
+        base.DoUpdateLogic();
 
-		if (bomb)
-		{
-			//go with player
-			Vector3 posXZ = bomb.IsHoldedBy.position
-				+ bomb.IsHoldedBy.forward.normalized
-				* bomb.transform.localScale.magnitude
-				* bomb.GetComponent<SphereCollider>().radius;
+        if (bomb)
+        {
+            //go with player
+            Vector3 posXZ = bomb.IsHoldedBy.position
+                + bomb.IsHoldedBy.forward.normalized
+                * bomb.transform.localScale.magnitude
+                * bomb.GetComponent<SphereCollider>().radius;
 
-			float posY = bomb.IsHoldedBy.position.y;
+            float posY = bomb.IsHoldedBy.position.y;
 
-			if (bomb.IsHoldedBy.gameObject.TryGetComponent<BoxCollider>(out BoxCollider box))
-			{ posY += box.center.y; }
+            if (bomb.IsHoldedBy.gameObject.TryGetComponent<BoxCollider>(out BoxCollider box))
+            { posY += box.center.y; }
 
-			posY += bomb.transform.localScale.magnitude
-				* bomb.GetComponent<SphereCollider>().radius;
+            posY += bomb.transform.localScale.magnitude
+                * bomb.GetComponent<SphereCollider>().radius;
 
-			itembase.transform.position =
-				new Vector3(posXZ.x, posY, posXZ.z);
-		}
+            itembase.transform.position =
+                new Vector3(posXZ.x, posY, posXZ.z);
+        }
 
-		if (itembase.IsThrow)
-		{
-			//if(bomb.IsThrow) changeState to ThrowByPlayer, return;
-			itembase.StateMachine.ChangeState(itembase.OnThrowState);
-		}
+        if (itembase.IsThrow)
+        {
+            //if(bomb.IsThrow) changeState to ThrowByPlayer, return;
+            itembase.IsThrow = false;
+            itembase.StateMachine.ChangeState(itembase.OnThrowState);
+        }
 
-	}
+    }
 
-	public override void Initialize(GameObject gameObject, ItemBase itembase)
-	{
-		base.Initialize(gameObject, itembase);
-	}
+    public override void Initialize(GameObject gameObject, ItemBase itembase)
+    {
+        base.Initialize(gameObject, itembase);
+    }
 
-	public override void ResetValues()
-	{
-		base.ResetValues();
-	}
+    public override void ResetValues()
+    {
+        base.ResetValues();
+    }
 }

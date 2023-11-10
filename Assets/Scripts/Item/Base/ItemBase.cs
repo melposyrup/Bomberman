@@ -184,7 +184,7 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 		StateMachine.CurrentItemState.UpdateState();
 
 		//debug
-		if (this.transform.position.x < -5)
+		if (this.transform.position.x < -50)
 		{
 			Destroy(this.gameObject);
 		}

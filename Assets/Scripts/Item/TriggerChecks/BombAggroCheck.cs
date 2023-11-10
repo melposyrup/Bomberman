@@ -13,9 +13,8 @@ public class BombAggroCheck : MonoBehaviour
 
 	private void OnTriggerEnter(Collider collision)
 	{
-		// Unityでレイヤーを使用して判定するコード
+		// UnityでEぅ洎`を使用して判定すE畅`ド
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Player")
-			|| collision.gameObject.layer == LayerMask.NameToLayer("AirWall")
 			|| collision.gameObject.layer == LayerMask.NameToLayer("Bomb"))
 		{
 			_itembase.SetAggroStatus(true);

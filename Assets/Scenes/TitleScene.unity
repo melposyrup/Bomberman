@@ -616,6 +616,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager_Singleton
       objectReference: {fileID: 0}
+    - target: {fileID: 5512282481280585467, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512282481280585467, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512282481280585467, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512282481280585467, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
+      propertyPath: seSoundDatas.Array.data[16].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512282481280585467, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[3].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b3fd2abf16130b41a266ae3717a9fb2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e42478e7230f34c9da8a6c3bb25249, type: 3}
 --- !u!222 &5706434065232543364

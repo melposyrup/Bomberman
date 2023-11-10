@@ -63,6 +63,7 @@ public class PlayerIdleState : PlayerState
         // kick
         if (player.IsKickPressed)
         {
+            SoundManager.Instance.PlaySE(SESoundData.SE.KickBomb);
             float playerCenter = player.GetComponent<BoxCollider>().center.y;
             Vector3 origin = player.transform.position + new Vector3(0, playerCenter, 0);
             if (Physics.Raycast(
@@ -96,6 +97,8 @@ public class PlayerHoldState : PlayerState
     {
         player.Animator.SetBool("isHold", true);
 
+        SoundManager.Instance.PlaySE(SESoundData.SE.TakeOutBomb);
+
         // create bomb, set to throwState
         GameObject _bomb = GameObject.Instantiate(
             player.BombPrefab,
@@ -122,6 +125,7 @@ public class PlayerHoldState : PlayerState
             {
                 bomb.Expand();
                 countdown = expandCooldown;
+                SoundManager.Instance.PlaySE(SESoundData.SE.BombExpansionToMAX);
             }
         }
         else { countdown -= Time.deltaTime; }
@@ -129,6 +133,7 @@ public class PlayerHoldState : PlayerState
         // throw
         if (player.IsThrowPressed)
         {
+            SoundManager.Instance.PlaySE(SESoundData.SE.ThrowBomb);
             player.IsThrowPressed = false;
             player.playerStateMachine.ChangeState(player.IdleState);
         }
@@ -164,6 +169,7 @@ public class PlayerStunState : PlayerState
     }
     public override void ExitState()
     {
+        SoundManager.Instance.PlaySE(SESoundData.SE.Stunned);
         countdown = 2f;
         player.Animator.SetBool("isStun", false);
     }
@@ -177,6 +183,8 @@ public class PlayerDeadState : PlayerState
 
     public override void EnterState()
     {
+        SoundManager.Instance.PlaySE(SESoundData.SE.PlayerDie);
+
         player.Animator.SetTrigger("Dead");
 
         Debug.LogWarning("Dead State");

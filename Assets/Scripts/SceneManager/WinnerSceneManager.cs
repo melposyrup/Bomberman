@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class WinnerSceneManager : SceneManagerBase
 {
-	public KeyCode InputBackToSelection = KeyCode.A;
-
 	public Animator PlayerModelAnimator;
 
 	// setup prefabs in inspector
@@ -60,7 +58,7 @@ public class WinnerSceneManager : SceneManagerBase
 	{
 		if (_countdown < 0)
 		{
-			if (Input.GetKeyDown(InputBackToSelection))
+			if (Input.GetButtonDown("InputNextScene"))
 			{
 				FadingImage.StartFadingIn();
 				Invoke("BackToSelectionScene", 1f);

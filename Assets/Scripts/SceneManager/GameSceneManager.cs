@@ -92,7 +92,7 @@ public class GameSceneManager : SceneManagerBase
 	private  void Start()
 	{
 		sceneStateMachine.Initialize(EnterState);
-
+		SoundManager.Instance.PlaySE(SESoundData.SE.ReadyGo);
 		Timer = GameObject.Find("Timer").GetComponent<TimerManager>();
 		if (!Timer) { Debug.Log("TimerPrefab is Undefined"); }
 
@@ -145,7 +145,7 @@ public class GameEnterState : SceneState
 	{
 		//Debug.Log("GameEnterState");
 		// 1. fading in
-		// 2. READY GO ¤Î¥á¥Ã¥»©`¥¸¤ò±íÊ¾
+		// 2. READY GO ¤Î¥á¥Ã¥»©`¥¸¤ò±úæ¾
 		// 3. players uncontrollable  gameSceneManager.AllPlayerInputEnable(false);
 		gameSceneManager.EventManager.EnterGameScene.Invoke();
 	}
@@ -155,6 +155,7 @@ public class GameEnterState : SceneState
 		{ _countdown -= Time.deltaTime; }
 		else
 		{
+			SoundManager.Instance.PlaySE(SESoundData.SE.GameStartSE);
 			// change state
 			gameSceneManager.sceneStateMachine.ChangeState(
 				gameSceneManager.StartState);

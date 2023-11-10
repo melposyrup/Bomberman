@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class TitleSceneManager : SceneManagerBase
 {
-	public KeyCode InputNextScene = KeyCode.Return;
-
 	[SerializeField] private FadingImage _fadingImage;
 	[SerializeField] private Text _startText;
 
@@ -27,8 +25,9 @@ public class TitleSceneManager : SceneManagerBase
 	/// </summary>
 	private void PressKeyForSceneChange()
 	{
-		if (Input.GetKeyDown(InputNextScene))
+		if (Input.GetButtonDown("InputNextScene"))
 		{
+			SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 			_fadingImage.StartFadingIn();
 			Invoke("BackToSelectionScene", 1f);
 		}

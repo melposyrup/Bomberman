@@ -12,8 +12,6 @@ using UnityEngine;
 
 public class ResultSceneManager : SceneManagerBase
 {
-	public KeyCode InputNewGame = KeyCode.A;
-
 	private bool _hasWinner = false;
 
 	// cooldown for input key
@@ -94,7 +92,7 @@ public class ResultSceneManager : SceneManagerBase
 	{
 		if (_countdown < 0)
 		{
-			if (Input.GetKeyDown(InputNewGame))
+			if (Input.GetButtonDown("InputNextScene"))
 			{
 				FadingImage.StartFadingIn();
 				Invoke("StartNewGame", 1f);

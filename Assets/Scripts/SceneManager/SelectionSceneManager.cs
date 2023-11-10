@@ -11,11 +11,7 @@ public static class GlobalVariables
 }
 
 public class SelectionSceneManager : SceneManagerBase
-{
-	public KeyCode InputLeftArrow= KeyCode.LeftArrow;
-	public KeyCode InputRightArrow = KeyCode.RightArrow;
-	public KeyCode InputSelect = KeyCode.Return;
-	
+{	
 	// 現在の選択画面
 	private int _selectScene = 0;
 	// 現在選んでいる場所
@@ -64,17 +60,17 @@ public class SelectionSceneManager : SceneManagerBase
 			// 1P
 			case 0:
 				// プレイヤー１のキャラ選択
-				if (Input.GetKeyDown(InputLeftArrow))
+				if (Input.GetButtonDown("LeftArrow"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum--;
 				}
-				else if (Input.GetKeyDown(InputRightArrow))
+				else if (Input.GetButtonDown("RightArrow"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum++;
 				}
-				else if (Input.GetKeyDown(InputSelect))
+				else if (Input.GetButtonDown("InputNextScene"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor1P = SelectNum;
@@ -101,7 +97,7 @@ public class SelectionSceneManager : SceneManagerBase
 			// 2P
 			case 1:
 				// プレイヤー２のキャラ選択
-				if (Input.GetKeyDown(InputLeftArrow))
+				if (Input.GetButtonDown("LeftArrow"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum--;
@@ -110,7 +106,7 @@ public class SelectionSceneManager : SceneManagerBase
 						SelectNum--;						
 					}
 				}
-				else if (Input.GetKeyDown(InputRightArrow))
+				else if (Input.GetButtonDown("RightArrow"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum++;
@@ -119,7 +115,7 @@ public class SelectionSceneManager : SceneManagerBase
 						SelectNum++;
 					}
 				}
-				else if (Input.GetKeyDown(InputSelect))
+				else if (Input.GetButtonDown("InputNextScene"))
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.EnterKey);
 					GlobalVariables.SelectColor2P = SelectNum;

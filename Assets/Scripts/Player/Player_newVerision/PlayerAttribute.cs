@@ -39,6 +39,7 @@ public class PlayerAttribute : MonoBehaviour
 				// update ItemList
 				if (ItemList.ContainsKey(item.Type))
 				{
+					SoundManager.Instance.PlaySE(SESoundData.SE.GetItem);
 					ItemList[item.Type]++;
 				}
 				else

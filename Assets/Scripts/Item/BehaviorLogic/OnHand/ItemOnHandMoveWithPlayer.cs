@@ -45,12 +45,13 @@ public class ItemOnHandMoveWithPlayer : ItemOnHandSOBase
             //go with player
             Vector3 posXZ = bomb.IsHoldedBy.position
                 + bomb.IsHoldedBy.forward.normalized
+                * (bomb.GetComponent<SphereCollider>().radius 
                 * bomb.transform.localScale.magnitude
-                * bomb.GetComponent<SphereCollider>().radius;
+                + bomb.Owner.GetComponent<BoxCollider>().size.z / 2f);
 
             float posY = bomb.IsHoldedBy.position.y;
 
-            if (bomb.IsHoldedBy.gameObject.TryGetComponent<BoxCollider>(out BoxCollider box))
+            if (bomb.Owner.TryGetComponent<BoxCollider>(out BoxCollider box))
             { posY += box.center.y; }
 
             posY += bomb.transform.localScale.magnitude

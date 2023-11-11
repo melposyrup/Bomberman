@@ -184,10 +184,18 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 		StateMachine.CurrentItemState.UpdateState();
 
 		//debug
-		float lowerBoundary = -50f;
+		float lowerBoundary = -15f;// y posiotion of water surface
 		if (this.transform.position.x < lowerBoundary)
 		{
-			Destroy(this.gameObject);
+			if (this is Bomb bomb)
+			{
+				bomb.Death();
+			}
+			else
+			{
+				Destroy(this.gameObject);
+			}
+
 		}
 
 		// for items not Undefined type

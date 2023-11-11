@@ -105,7 +105,7 @@ public class ResultSceneManager : SceneManagerBase
 	}
 	private void StartNewGame()
 	{
-		SoundManager.Instance.StopBGM(BGMSoundData.BGM.ResultScene);
+		SoundManager.Instance.StopSE(SESoundData.SE.ResultSE);
 		if (_hasWinner) { SceneChange(SceneManagerBase.EScene.WinnerScene); }
 		else { SceneChange(SceneManagerBase.EScene.GameScene); }
 	}

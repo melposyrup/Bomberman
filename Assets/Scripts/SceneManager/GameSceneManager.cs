@@ -235,7 +235,7 @@ public class GameEndState : SceneState
 	public override void EnterState()
 	{
 		SoundManager.Instance.PlaySE(SESoundData.SE.GameOver);
-		SoundManager.Instance.FadeOutBGMbySeconds(BGMSoundData.BGM.PlayScene, 3f);
+		SoundManager.Instance.FadeOutBGMbySeconds(BGMSoundData.BGM.PlayScene, 1f);
 		//Debug.Log("GameEndState");
 		// 1. stop timer
 		// 2. players uncontrollable gameSceneManager.AllPlayerInputEnable(false);

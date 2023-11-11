@@ -13,7 +13,7 @@ using UnityEngine;
 public class ItemOnKickMoving : ItemOnKickSOBase
 {
 	private Vector3 _direction;
-	private float _speed = 5f;
+	private float _speed = 8f;
 
 	private float collisionCooldown = 0.5f;
 

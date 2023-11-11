@@ -152,11 +152,6 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 			}
 			if (IsExplodeTimer < 0)
 			{
-				if (Owner && Owner.TryGetComponent(out Player player))
-				{
-					player.BombCountRecover();
-				}
-
 				Death();
 			}
 		}
@@ -212,8 +207,13 @@ public class Bomb : ItemBase, IItemKickable, IItemHoldable, IBombExpandable, IBo
 		//Debug.Log("bomb state:  " + base.StateMachine.CurrentItemState);
 	}
 
-	private void Death()
+	public void Death()
 	{
+		if (Owner && Owner.TryGetComponent(out Player player))
+		{
+			player.BombCountRecover();
+		}
+
 		//playerObject.func();
 		if (Explosion)
 		{

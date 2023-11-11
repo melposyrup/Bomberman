@@ -65,6 +65,7 @@ public class PlayerAttribute : MonoBehaviour
 						break;
 					case ItemType.BombUp:
 						player.BombCountMax++;
+						player.BombCount++;
 
 						break;
 					case ItemType.Power:

@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
 
 
 	public float masterVolume = 1;
-	public float bgmMasterVolume = 0.25f;
+	public float bgmMasterVolume = 1f;
 	public float seMasterVolume = 1f;
 
 	public static SoundManager Instance { get; private set; }
@@ -128,6 +128,11 @@ public class SoundManager : MonoBehaviour
 		seAudioSource.volume = data.volume * seMasterVolume * masterVolume;
 		//seAudioSource.Play();
 		seAudioSource.PlayOneShot(data.audioClip);
+	}
+
+	public void StopSE(SESoundData.SE se)
+	{
+		seAudioSource.Stop();
 	}
 
 	public void PlaySEPlayerAttack(SESoundData.SE se)

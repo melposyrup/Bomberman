@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Experimental.GlobalIllumination;
 
 /// <summary>
 /// <para> state change in GameScene </para>
@@ -16,6 +17,7 @@ public class GameSceneManager : SceneManagerBase
 
 	public GameEventManager EventManager;
 	public TimerManager Timer;
+	public Transform DirectionalLight;
 
 	#region State Machine Variables
 	public SceneStateMachine sceneStateMachine;
@@ -67,15 +69,6 @@ public class GameSceneManager : SceneManagerBase
 
 	#endregion
 
-	#region Time up
-	private bool TimeUp()
-	{
-		bool mintueIsZero = Timer.GetMinutes() == 0;
-		bool secondIsZero = Timer.GetSeconds() == 0;
-		return mintueIsZero && secondIsZero;
-	}
-	#endregion
-
 	private  void Awake()
 	{
 		EventManager = this.GetComponent<GameEventManager>();
@@ -91,6 +84,7 @@ public class GameSceneManager : SceneManagerBase
 	}
 	private  void Start()
 	{
+		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.PlayScene);
 		sceneStateMachine.Initialize(EnterState);
 		SoundManager.Instance.PlaySE(SESoundData.SE.ReadyGo);
 		Timer = GameObject.Find("Timer").GetComponent<TimerManager>();
@@ -103,23 +97,26 @@ public class GameSceneManager : SceneManagerBase
 			playerLife[playerId] = true;
 		}
 
+		DirectionalLight.rotation = Quaternion.Euler(90, 0, 0);
+
 	}
 
 	private void Update()
 	{
 		sceneStateMachine.CurrentState.UpdateState();
 
-		if (TimeUp())
+		if (Timer.TimeIsUp())
 		{
 			Timer.StopTimer();
+			Timer.SetTimerToZero();
 			sceneStateMachine.ChangeState(EndState);
-			SoundManager.Instance.PlaySE(SESoundData.SE.GameOver);
 		}
 
 
 		//test
 		if (Input.GetKeyDown(KeyCode.I))
 		{
+			
 
 		}
 	}
@@ -134,7 +131,7 @@ public class GameSceneManager : SceneManagerBase
 public class GameEnterState : SceneState
 {
 	GameSceneManager gameSceneManager;
-	private float _countdown = 3.0f;
+	private float _countdown = 2.0f;
 
 	public GameEnterState(SceneManagerBase sceneManagerBase) : base(sceneManagerBase)
 	{
@@ -237,6 +234,8 @@ public class GameEndState : SceneState
 
 	public override void EnterState()
 	{
+		SoundManager.Instance.PlaySE(SESoundData.SE.GameOver);
+		SoundManager.Instance.FadeOutBGMbySeconds(BGMSoundData.BGM.PlayScene, 3f);
 		//Debug.Log("GameEndState");
 		// 1. stop timer
 		// 2. players uncontrollable gameSceneManager.AllPlayerInputEnable(false);

@@ -28,11 +28,11 @@ public class BlockSpawner : MonoBehaviour
 
 			//Debug.Log("SpawnBlocks");
 
-			// Generate a random position
+			// Generate a random position in integer coordinates
 			Vector3 spawnPosition = new Vector3(
-				Mathf.Round(Random.Range(-xRange, xRange) * 2) / 2.0f,
+				Mathf.Round(Random.Range(-xRange, xRange)),
 				Mathf.Round(height * 2) / 2.0f,
-				Mathf.Round(Random.Range(-zRange, zRange) * 2) / 2.0f
+				Mathf.Round(Random.Range(-zRange, zRange))
 			);
 
 			// Cast a ray downward from the spawn position

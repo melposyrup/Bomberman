@@ -39,13 +39,14 @@ public class PlayerAttribute : MonoBehaviour
 				// update ItemList
 				if (ItemList.ContainsKey(item.Type))
 				{
-					SoundManager.Instance.PlaySE(SESoundData.SE.GetItem);
 					ItemList[item.Type]++;
 				}
 				else
 				{
 					ItemList[item.Type] = 1;
 				}
+
+				SoundManager.Instance.PlaySE(SESoundData.SE.GetItem);
 
 				switch (item.Type)
 				{
@@ -96,7 +97,7 @@ public class PlayerAttribute : MonoBehaviour
 		{
 			return 0;
 		}
-	}	
+	}
 }
 
 [System.Serializable]

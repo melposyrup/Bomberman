@@ -61,8 +61,7 @@ public class ResultSceneManager : SceneManagerBase
 		if (FadingImage) { FadingImage.StartFadingOut(); }
 
 		// play sound
-		SoundManager.Instance.PlaySE(SESoundData.SE.ResultSE);
-		SoundManager.Instance.PlayBGM(BGMSoundData.BGM.ResultScene);
+		SoundManager.Instance.PlaySE(SESoundData.SE.ResultSE);//just once
 
 		StartCoroutine(ChangeColorCoroutine());
 	}

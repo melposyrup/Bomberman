@@ -111,6 +111,15 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public void SetAllKeyOff()
+	{
+		isBombPressed = false;
+		isKickPressed = false;
+		isHoldPressed = false;
+		isThrowPressed = false;
+		isExpandPressed = false;
+	}
+
 	#endregion
 
 	#region PlayerStateMachine
@@ -124,6 +133,9 @@ public class Player : MonoBehaviour
 
 	#endregion
 
+	// debug
+	private Rigidbody rb;
+
 	private void Awake()
 	{
 		PlayerInitialize();
@@ -135,7 +147,9 @@ public class Player : MonoBehaviour
 		StunState = new PlayerStunState(this);
 		DeadState = new PlayerDeadState(this);
 
-		BombCount= BombCountMax;
+		BombCount = BombCountMax;
+
+		rb = GetComponent<Rigidbody>();
 	}
 
 	private void Start()
@@ -146,6 +160,15 @@ public class Player : MonoBehaviour
 	private void Update()
 	{
 		playerStateMachine.CurrentState.UpdateState();
+
+
+	}
+
+	private void FixedUpdate()
+	{
+		//debug
+		float gravityForceMagnitude = 4f;
+		rb.AddForce(Vector3.down * gravityForceMagnitude);
 	}
 
 

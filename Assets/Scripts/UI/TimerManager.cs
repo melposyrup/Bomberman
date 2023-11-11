@@ -66,4 +66,17 @@ public class TimerManager : MonoBehaviour
 	{
 		return _seconds;
 	}
+
+	public bool TimeIsUp()
+	{
+		return _minutes <= 0 && _seconds <= 0;
+	}
+
+	public void SetTimerToZero()
+	{
+		_minutes = 0;
+		_seconds = 0;
+	}
+
+
 }

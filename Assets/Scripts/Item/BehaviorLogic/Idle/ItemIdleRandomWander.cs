@@ -12,6 +12,7 @@ public class ItemIdleRandomWander : ItemIdleSOBase
 	private Vector3 _direction;
 
 	private float collisionCooldown = 0f;
+	private float gravityForceMagnitude = 4f;
 
 	public override void DoAnimationTriggerEventLogic(ItemBase.AnimationTriggerType triggerType)
 	{
@@ -33,6 +34,7 @@ public class ItemIdleRandomWander : ItemIdleSOBase
 	public override void DoFixedUpdateLogic()
 	{
 		base.DoFixedUpdateLogic();
+		itembase.Rigidbody.AddForce(Vector3.down * gravityForceMagnitude);
 	}
 
 	public override void DoUpdateLogic()

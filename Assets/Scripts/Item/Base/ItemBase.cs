@@ -184,7 +184,8 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 		StateMachine.CurrentItemState.UpdateState();
 
 		//debug
-		if (this.transform.position.x < -50)
+		float lowerBoundary = -50f;
+		if (this.transform.position.x < lowerBoundary)
 		{
 			Destroy(this.gameObject);
 		}
@@ -203,6 +204,14 @@ public class ItemBase : MonoBehaviour, IItemMoveable, ITriggerCheckable, IItemTh
 
 		//keep rotation not changed
 		this.transform.rotation = Quaternion.identity;
+
+		//debug
+		if(Type!=ItemType.Undefined)
+		{
+			float gravityForceMagnitude = 6f;
+			Rigidbody.AddForce(Vector3.down * gravityForceMagnitude);
+		}
+
 	}
 
 	#region OnLand

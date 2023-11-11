@@ -11,7 +11,7 @@ public static class GlobalVariables
 }
 
 public class SelectionSceneManager : SceneManagerBase
-{	
+{
 	// 現在の選択画面
 	private int _selectScene = 0;
 	// 現在選んでいる場所
@@ -44,7 +44,7 @@ public class SelectionSceneManager : SceneManagerBase
 					GameSettings.Instance.InitializeAll();
 					GameSettings.Instance.SetMaterial(1, GlobalVariables.SelectColor1P);
 					GameSettings.Instance.SetMaterial(2, GlobalVariables.SelectColor2P);
-					SoundManager.Instance.StopBGM(BGMSoundData.BGM.Selections);
+	
 					SceneChange(SceneManagerBase.EScene.GameScene);
 				}
 				break;
@@ -85,7 +85,7 @@ public class SelectionSceneManager : SceneManagerBase
 					}
 					_selectPlayer++;
 				}
-				else if(SelectNum < 0)
+				else if (SelectNum < 0)
 				{
 					SelectNum = 3;
 				}
@@ -101,9 +101,9 @@ public class SelectionSceneManager : SceneManagerBase
 				{
 					SoundManager.Instance.PlaySE(SESoundData.SE.SelectKey);
 					SelectNum--;
-					if (SelectNum == GlobalVariables.SelectColor1P) 
-                    {
-						SelectNum--;						
+					if (SelectNum == GlobalVariables.SelectColor1P)
+					{
+						SelectNum--;
 					}
 				}
 				else if (Input.GetButtonDown("RightArrow"))
@@ -124,12 +124,12 @@ public class SelectionSceneManager : SceneManagerBase
 				}
 				else if (SelectNum < 0)
 				{
-					if(GlobalVariables.SelectColor1P == 3)
+					if (GlobalVariables.SelectColor1P == 3)
 					{
 						SelectNum = 2;
 					}
 					else
-                    {
+					{
 						SelectNum = 3;
 					}
 				}

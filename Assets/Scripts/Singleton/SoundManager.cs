@@ -74,14 +74,13 @@ public class SoundManager : MonoBehaviour
 	/// <param name="fadeDuration"></param>
 
 	//EXAMPLE: SoundManager.Instance.SWitchBGM(BGMSoundData.BGM.Title, BGMSoundData.BGM.Selections,1.5f);
-	public void SWitchBGM(BGMSoundData.BGM bgm1, BGMSoundData.BGM bgm2, float fadeDuration)
+	public void SWitchBGM(BGMSoundData.BGM bgm1, BGMSoundData.BGM bgm2, float fadeDuration = 1f)
 	{
 		FadeOutBGMbySeconds(bgm1, fadeDuration);
 		PlayBGMWithDelaybySeconds(bgm2, fadeDuration);
-
 	}
 
-	public void FadeOutBGMbySeconds(BGMSoundData.BGM bgm, float fadeDuration)
+	public void FadeOutBGMbySeconds(BGMSoundData.BGM bgm, float fadeDuration = 1f)
 	{
 		StartCoroutine(FadeOutBGM(bgm, fadeDuration));
 	}
@@ -102,6 +101,8 @@ public class SoundManager : MonoBehaviour
 
 		bgmAudioSource.volume = 0;
 		bgmAudioSource.Stop();
+		bgmAudioSource.volume = 1;
+
 	}
 
 	public void PlayBGMWithDelaybySeconds(BGMSoundData.BGM bgm, float delay)
@@ -165,9 +166,9 @@ public class SoundManager : MonoBehaviour
 [System.Serializable]
 public class BGMSoundData
 {
-	public enum BGM	// changed by scene
+	public enum BGM // changed by scene
 	{
-		
+
 		Title,
 		Selections,
 		PlayScene,
@@ -186,7 +187,7 @@ public class BGMSoundData
 [System.Serializable]
 public class SESoundData
 {
-	public enum SE	// sound effect
+	public enum SE  // sound effect
 	{
 		//MenuSE		
 		SelectKey,

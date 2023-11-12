@@ -191,7 +191,8 @@ public class Player : MonoBehaviour
 			if (collision.gameObject.layer == LayerMask.NameToLayer("Bomb")
 				&& collision.gameObject.TryGetComponent(out Bomb bomb))
 			{
-				if (bomb.IsKick) playerStateMachine.ChangeState(StunState);
+				if (bomb.StateMachine.CurrentItemState == bomb.OnKickState)
+					playerStateMachine.ChangeState(StunState);
 			}
 			else if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
 			{

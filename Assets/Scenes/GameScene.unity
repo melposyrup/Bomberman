@@ -3990,7 +3990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1470382358}
   - component: {fileID: 1470382359}
-  m_Layer: 7
+  m_Layer: 18
   m_Name: ActiveAreaMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

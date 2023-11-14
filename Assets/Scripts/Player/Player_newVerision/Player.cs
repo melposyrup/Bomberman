@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 	}
 	public bool BombCountLoadSuccess()
 	{
-		if (BombCount >= 0)
+		if (BombCount > 0)
 		{
 			BombCount--;
 			return true;

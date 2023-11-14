@@ -143,7 +143,7 @@ public class GameEnterState : SceneState
 	{
 		//Debug.Log("GameEnterState");
 		// 1. fading in
-		// 2. READY GO ¤Î¥á¥Ã¥»©`¥¸¤ò±úæ¾
+		// 2. READY GO
 		// 3. players uncontrollable  gameSceneManager.AllPlayerInputEnable(false);
 		gameSceneManager.EventManager.EnterGameScene.Invoke();
 	}
